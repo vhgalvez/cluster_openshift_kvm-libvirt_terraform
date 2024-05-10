@@ -8,6 +8,14 @@ resource "libvirt_volume" "vm_volume" {
 }
 
 
+
+resource "libvirt_network" "kube_network" {
+  name      = "kube_network"
+  mode      = "nat"
+  addresses = ["10.17.3.0/24"]
+}
+
+
 data "template_file" "user_data" {
   for_each = var.vm_rockylinux_definitions
 
