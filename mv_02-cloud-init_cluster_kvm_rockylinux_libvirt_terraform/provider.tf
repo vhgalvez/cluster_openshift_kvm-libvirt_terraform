@@ -12,7 +12,5 @@ terraform {
 
 
 provider "libvirt" {
-  #uri = "qemu:///system"
-  alias = "libvirt"
-  uri   = "qemu+ssh://root@192.168.122.1:2223/system"
+  uri = "qemu:///system"
 }
