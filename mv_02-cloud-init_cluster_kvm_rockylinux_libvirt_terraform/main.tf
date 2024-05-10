@@ -55,9 +55,9 @@ resource "libvirt_domain" "rocky9" {
     mode = "host-passthrough"
   }
 
-  graphics {
-    type        = "spice"
+
+ graphics {
+    type        = "vnc"
     listen_type = "address"
-    autoport    = true
   }
 }
