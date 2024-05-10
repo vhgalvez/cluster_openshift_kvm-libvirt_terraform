@@ -20,10 +20,11 @@ data "template_file" "user_data" {
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
-  name      = each.value.cloudinit_disk
+  name      = "${each.key}_cloudinit.iso" # Ensuring unique names
   pool      = each.value.cloudinit_pool
   user_data = data.template_file.user_data[each.key].rendered
 }
+
 
 resource "libvirt_domain" "vm" {
   for_each = var.vm_rockylinux_definitions
