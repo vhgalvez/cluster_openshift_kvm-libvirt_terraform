@@ -53,3 +53,6 @@ variable "vm_rockylinux_definitions" {
     ip     = string
   }))
 }
+variable "rocky9_domain_name" {
+  default = "New_Unique_Domain_Name"
+}
