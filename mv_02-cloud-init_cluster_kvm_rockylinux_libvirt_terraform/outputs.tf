@@ -1,4 +1,5 @@
 # Output Server IP
+
 output "vm_ips" {
-  value = { for vm_id, vm in libvirt_domain.vm : vm_id => element(libvirt_domain.vm[vm_id].network_interface.0.addresses, 0) }
+  value = { for vm_id, vm in libvirt_domain.vm : vm_id => length(vm.network_interface.0.addresses) > 0 ? vm.network_interface.0.addresses[0] : "No IP Assigned" }
 }
