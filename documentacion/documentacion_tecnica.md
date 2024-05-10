@@ -48,3 +48,13 @@ sudo virsh net-dhcp-leases default
  Expiry Time           dirección MAC       Protocol   IP address           Hostname       Client ID or DUID
 ----------------------------------------------------------------------------------------------------------------
  2024-05-10 16:19:17   52:54:00:66:1a:d0   ipv4       192.168.122.167/24   rockylinux92   01:52:54:00:66:1a:d0
+
+
+ To list all volumes in the default pool:
+bash
+Copy code
+virsh vol-list default
+To delete an existing volume if it's no longer needed:
+bash
+Copy code
+virsh vol-delete --pool default rocky9_cloudinit_disk.iso
