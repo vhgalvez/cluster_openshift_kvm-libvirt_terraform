@@ -45,3 +45,11 @@ variable "rocky9_domain_vcpu" {
 # VM Network name
 variable "rocky9_network_name" {
 }
+
+variable "vm_rockylinux_definitions" {
+  description = "Definitions of VM configurations"
+  type = map(object({
+    cpus   = number
+    memory = number
+    ip     = string
+  }))
