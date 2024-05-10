@@ -1,4 +1,3 @@
-# Crear volúmenes basados en la definición de máquinas
 resource "libvirt_volume" "vm_volume" {
   for_each = var.vm_rockylinux_definitions
 
@@ -8,7 +7,6 @@ resource "libvirt_volume" "vm_volume" {
   size   = each.value.volume_size
 }
 
-# Crear plantillas de user data para cada VM
 data "template_file" "user_data" {
   for_each = var.vm_rockylinux_definitions
 
@@ -19,7 +17,6 @@ data "template_file" "user_data" {
   }
 }
 
-# Crear discos cloud-init para cada VM
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
@@ -28,7 +25,6 @@ resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   user_data = data.template_file.user_data[each.key].rendered
 }
 
-# Crear dominios de VM
 resource "libvirt_domain" "vm" {
   for_each = var.vm_rockylinux_definitions
 

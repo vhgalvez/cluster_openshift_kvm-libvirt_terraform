@@ -1,3 +1,4 @@
+# vars.tf
 variable "ssh_keys" {
   description = "SSH keys for the VMs"
   type        = list(string)
@@ -17,6 +18,11 @@ variable "rocky9_image" {
   description = "Path to the Rocky Linux 9 image"
   type        = string
 }
+variable "rocky9_network_name" {
+  description = "The network name for the VMs"
+  type        = string
+}
+
 
 variable "vm_rockylinux_definitions" {
   description = "Definitions of virtual machines including CPU and memory configuration"
