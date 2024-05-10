@@ -1,23 +1,29 @@
 # Defining VM Volume
 resource "libvirt_volume" "rocky9_qcow2" {
-  name = var.rocky9_volume_name
-  pool = var.rocky9_volume_pool
-  #source = "https://download.rockylinux.org/pub/rocky/9.1/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2"
-  # https://rocky-linux-europe-west2.production.gcp.mirrors.ctrliq.cloud/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.2-20230513.0.x86_64.qcow2
+  name   = var.rocky9_volume_name
+  pool   = var.rocky9_volume_pool
   source = var.rocky9_volume_source
   format = var.rocky9_volume_format
-  // size  = var.rocky9_volume_size
 }
 
 data "template_file" "user_data" {
-  template = file("${path.module}/user-data")
+  template = file("${path.module}/${each.key}-user-data.tpl")
+
+  vars = {
+    ssh_keys = join("\n  - ", var.ssh_keys)
+  }
+}
+
+resource "libvirt_domain" "vm" {
+  # configuración de la VM
+  user_data = data.template_file.user_data.rendered
 }
 
 data "template_file" "meta_data" {
   template = file("${path.module}/meta-data")
   vars = {
-    instance-id    = "${var.rocky9_name}"
-    local-hostname = "${var.rocky9_name}"
+    instance-id    = var.rocky9_name
+    local-hostname = var.rocky9_name
   }
 }
 
@@ -40,7 +46,6 @@ resource "libvirt_domain" "rocky9" {
 
   disk {
     volume_id = libvirt_volume.rocky9_qcow2.id
-    // file = libvirt_volume.rocky9_qcow2.id
   }
 
   cloudinit = libvirt_cloudinit_disk.rocky9_cloudinit_disk.id
@@ -55,8 +60,7 @@ resource "libvirt_domain" "rocky9" {
     mode = "host-passthrough"
   }
 
-
- graphics {
+  graphics {
     type        = "vnc"
     listen_type = "address"
   }

@@ -1,25 +1,56 @@
-# terraform.tfvars
-rocky9_cloudinit_disk = "rocky9_cloudinit_disk.iso"
-rocky9_cloudinit_pool = "default"
-rocky9_domain_memory  = "4096"
-rocky9_domain_name    = "Golden_Rocky_9_2-TF"
-rocky9_domain_vcpu    = "2"
-rocky9_name           = "rockylinux92"
-rocky9_network_name   = "default"
-rocky9_volume_format  = "qcow2"
-rocky9_volume_name    = "Golden_Rocky_9_2-TF.qcow2"
-rocky9_volume_pool    = "default"
-rocky9_volume_size    = "32212254720"
-rocky9_volume_source  = "/var/lib/libvirt/images/rocky_image/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
 
-vm_rockylinux_definitions = {
-  "bastion1"       = { cpus = 2, memory = 2048, ip = "10.17.3.21" },
-  "freeipa1"       = { cpus = 2, memory = 2048, ip = "10.17.3.22" },
-  "load_balancer1" = { cpus = 2, memory = 2048, ip = "10.17.3.18" },
-  "postgresql1"    = { cpus = 2, memory = 2048, ip = "10.17.3.20" },
-}
+rocky9_cloudinit_disk_bastion1 = "rocky9_cloudinit_disk_bastion1.iso"
+rocky9_cloudinit_pool_bastion1 = "default"
+rocky9_domain_memory_bastion1  = "4096"
+rocky9_domain_name_bastion1    = "Golden_Rocky_9_2-TF"
+rocky9_domain_vcpu_bastion1    = "2"
+rocky9_name_bastion1           = "bastion1"
+rocky9_network_name_bastion1   = "default"
+rocky9_volume_format_bastion1  = "qcow2"
+rocky9_volume_name_bastion1    = "Golden_Rocky_9_2-TF.qcow2"
+rocky9_volume_pool_bastion1    = "default"
+rocky9_volume_size_bastion1    = "32212254720"
+rocky9_volume_source_bastion1  = "/var/lib/libvirt/images/rocky_image/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
+
+rocky9_cloudinit_disk_freeipa1 = "rocky9_cloudinit_disk_freeipa1 .iso"
+rocky9_cloudinit_pool_freeipa1 = "default"
+rocky9_domain_memory_freeipa1  = "4096"
+rocky9_domain_name_freeipa1    = "Golden_Rocky_9_2-TF"
+rocky9_domain_vcpu_freeipa1    = "2"
+rocky9_name_freeipa1           = "freeipa1"
+rocky9_network_name_freeipa1   = "default"
+rocky9_volume_format_freeipa1  = "qcow2"
+rocky9_volume_name_freeipa1    = "Golden_Rocky_9_2-TF.qcow2"
+rocky9_volume_pool_freeipa1    = "default"
+rocky9_volume_size_freeipa1    = "32212254720"
+rocky9_volume_source_freeipa1  = "/var/lib/libvirt/images/rocky_image/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
+
+rocky9_cloudinit_disk_load_balancer1 = "rocky9_cloudinit_disk.iso_balancer1"
+rocky9_cloudinit_pool_load_balancer1 = "default"
+rocky9_domain_memory_load_balancer1  = "4096"
+rocky9_domain_name_load_balancer1    = "Golden_Rocky_9_2-TF"
+rocky9_domain_vcpu_load_balancer1    = "2"
+rocky9_name_load_balancer1           = "load_balancer1"
+rocky9_network_name_load_balancer1   = "default"
+rocky9_volume_format_load_balancer1  = "qcow2"
+rocky9_volume_name_load_balancer1    = "Golden_Rocky_9_2-TF.qcow2"
+rocky9_volume_pool_load_balancer1    = "default"
+rocky9_volume_size_load_balancer1    = "32212254720"
+rocky9_volume_source_load_balancer1  = "/var/lib/libvirt/images/rocky_image/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
+
+rocky9_cloudinit_disk_postgresql1 = "rocky9_cloudinit_disk_postgresql1.iso"
+rocky9_cloudinit_pool_postgresql1 = "default"
+rocky9_domain_memory_postgresql1  = "4096"
+rocky9_domain_name_postgresql1    = "postgresql1.cefaslocalserver.com"
+rocky9_domain_vcpu_postgresql1    = "2"
+rocky9_name_postgresql1           = "postgresql1"
+rocky9_network_name_postgresql1   = "default"
+rocky9_volume_format_postgresql1  = "qcow2"
+rocky9_volume_name_postgresql1    = "Golden_Rocky_9_2-TF.qcow2"
+rocky9_volume_pool_postgresql1    = "default"
+rocky9_volume_size_postgresql1    = "32212254720"
+rocky9_volume_source_postgresql1  = "/var/lib/libvirt/images/rocky_image/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
+
 ssh_keys = [
   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDC9XqGWEd2de3Ud8TgvzFchK2/SYh+WHohA1KEuveXjCbse9aXKmNAZ369vaGFFGrxbSptMeEt41ytEFpU09gAXM6KSsQWGZxfkCJQSWIaIEAdft7QHnTpMeronSgYZIU+5P7/RJcVhHBXfjLHV6giHxFRJ9MF7n6sms38VsuF2s4smI03DWGWP6Ro7siXvd+LBu2gDqosQaZQiz5/FX5YWxvuhq0E/ACas/JE8fjIL9DQPcFrgQkNAv1kHpIWRqSLPwyTMMxGgFxGI8aCTH/Uaxbqa7Qm/aBfdG2lZBE1XU6HRjAToFmqsPJv4LkBxaC1Ag62QPXONNxAA97arICr vhgalvez@gmail.com"
 ]
-cluster_name   = "cluster_cefaslocalserver"
-cluster_domain = "cefaslocalserver.com"
