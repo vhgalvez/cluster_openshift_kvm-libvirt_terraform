@@ -42,7 +42,7 @@ sudo virsh destroy Golden_Rocky_9_2-TF
 
 
 
-sudo virsh net-dhcp-leases default
+default
 
 sudo virsh net-dhcp-leases default
  Expiry Time           dirección MAC       Protocol   IP address           Hostname       Client ID or DUID
