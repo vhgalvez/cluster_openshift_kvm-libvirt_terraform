@@ -1,0 +1,30 @@
+My IP address: \4{eth0}  \n \l
+
+#!/bin/bash
+echo "Rebooting for Selinux only once"
+rm -f  /etc/rc.local.rebootonce
+grub2-mkconfig -o /boot/grub2/grub.cfg
+yum -y upgrade 
+rm -f /etc/ssh/ssh_host_*
+# https://www.ssh-audit.com/hardening_guides.html#rhel8
+ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
+ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+chgrp ssh_keys /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
+chmod g+r /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
+awk '$5 >= 3071' /etc/ssh/moduli > /etc/ssh/moduli.safe
+mv -f /etc/ssh/moduli.safe /etc/ssh/moduli
+sed -i 's/^HostKey \/etc\/ssh\/ssh_host_ecdsa_key$/\#HostKey \/etc\/ssh\/ssh_host_ecdsa_key/g' /etc/ssh/sshd_config
+cp /etc/crypto-policies/back-ends/opensshserver.config /etc/crypto-policies/back-ends/opensshserver.config.orig
+echo -e "Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com
+GSSAPIKexAlgorithms gss-curve25519-sha256-
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256
+HostKeyAlgorithms ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-256,rsa-sha2-512
+PubkeyAcceptedAlgorithms ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-256,rsa-sha2-512
+CASignatureAlgorithms ecdsa-sha2-nistp256,sk-ecdsa-sha2-nistp256@openssh.com,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,sk-ssh-ed25519@openssh.com,rsa-sha2-256,rsa-sha2-512
+RequiredRSASize 2048" > /etc/crypto-policies/back-ends/opensshserver.config
+reboot
+
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+

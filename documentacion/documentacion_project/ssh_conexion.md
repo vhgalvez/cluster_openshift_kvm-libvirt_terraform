@@ -7,7 +7,7 @@ chmod 600 /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_
 
 ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift <usuario>@<servidor_ip>
 
-ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift core@10.17.3.21 --p 22
+ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift core@10.17.3.21 -p 22
 
 
 > /root/.ssh/known_hosts
@@ -16,3 +16,8 @@ rm /root/.ssh/known_hosts
 
 ssh -o StrictHostKeyChecking=no -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift core@10.17.3.21
 sudo chmod 600 /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift
+
+
+ssh 192.168.122.46
+
+ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift serra@192.168.122.46 -p 22
