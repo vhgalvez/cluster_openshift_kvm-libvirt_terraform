@@ -1,12 +1,17 @@
-# Defining VM Volume
-resource "libvirt_volume" "rocky9_qcow2" {
-  name   = var.rocky9_volume_name
-  pool   = var.rocky9_volume_pool
-  source = var.rocky9_volume_source
-  format = var.rocky9_volume_format
+# Crear volúmenes basados en la definición de máquinas
+resource "libvirt_volume" "vm_volume" {
+  for_each = var.vm_rockylinux_definitions
+
+  name   = each.value.volume_name
+  pool   = each.value.volume_pool
+  format = each.value.volume_format
+  size   = each.value.volume_size
 }
 
+# Crear plantillas de user data para cada VM
 data "template_file" "user_data" {
+  for_each = var.vm_rockylinux_definitions
+
   template = file("${path.module}/${each.key}-user-data.tpl")
 
   vars = {
@@ -14,42 +19,32 @@ data "template_file" "user_data" {
   }
 }
 
+# Crear discos cloud-init para cada VM
+resource "libvirt_cloudinit_disk" "vm_cloudinit" {
+  for_each = var.vm_rockylinux_definitions
+
+  name      = each.value.cloudinit_disk
+  pool      = each.value.cloudinit_pool
+  user_data = data.template_file.user_data[each.key].rendered
+}
+
+# Crear dominios de VM
 resource "libvirt_domain" "vm" {
-  # configuración de la VM
-  user_data = data.template_file.user_data.rendered
-}
+  for_each = var.vm_rockylinux_definitions
 
-data "template_file" "meta_data" {
-  template = file("${path.module}/meta-data.tpl")
-
-  vars = {
-    instance-id    = var.rocky9_name
-    local-hostname = var.rocky9_name
-  }
-}
-
-resource "libvirt_cloudinit_disk" "rocky9_cloudinit_disk" {
-  name      = var.rocky9_cloudinit_disk
-  pool      = var.rocky9_cloudinit_pool
-  user_data = data.template_file.user_data.rendered
-  meta_data = data.template_file.meta_data.rendered
-}
-
-resource "libvirt_domain" "rocky9" {
-  name       = var.rocky9_name
-  memory     = var.rocky9_domain_memory
-  vcpu       = var.rocky9_domain_vcpu
-  qemu_agent = true
+  name   = each.key
+  memory = each.value.domain_memory
+  vcpu   = each.value.cpus
 
   network_interface {
     network_name = var.rocky9_network_name
   }
 
   disk {
-    volume_id = libvirt_volume.rocky9_qcow2.id
+    volume_id = libvirt_volume.vm_volume[each.key].id
   }
 
-  cloudinit = libvirt_cloudinit_disk.rocky9_cloudinit_disk.id
+  cloudinit = libvirt_cloudinit_disk.vm_cloudinit[each.key].id
 
   console {
     type        = "pty"
@@ -57,13 +52,13 @@ resource "libvirt_domain" "rocky9" {
     target_port = "0"
   }
 
-  cpu {
-    mode = "host-passthrough"
-  }
-
   graphics {
     type        = "vnc"
     listen_type = "address"
     autoport    = true
+  }
+
+  cpu {
+    mode = "host-passthrough"
   }
 }
