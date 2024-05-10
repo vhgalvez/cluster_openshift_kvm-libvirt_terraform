@@ -27,3 +27,24 @@ Max kernel policy version:      33
 [victory@server cluster_openshift_kvm_terraform]$
 
 sudo dnf install arp-scan
+
+
+sudo virsh net-list --all
+sudo virsh net-start default
+
+sudo virsh net-autostart default
+
+
+
+sudo virsh list --all
+sudo virsh undefine Golden_Rocky_9_2-TF
+sudo virsh destroy Golden_Rocky_9_2-TF
+
+
+
+sudo virsh net-dhcp-leases default
+
+sudo virsh net-dhcp-leases default
+ Expiry Time           dirección MAC       Protocol   IP address           Hostname       Client ID or DUID
+----------------------------------------------------------------------------------------------------------------
+ 2024-05-10 16:19:17   52:54:00:66:1a:d0   ipv4       192.168.122.167/24   rockylinux92   01:52:54:00:66:1a:d0
