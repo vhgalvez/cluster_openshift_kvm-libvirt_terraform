@@ -7,10 +7,11 @@ resource "libvirt_volume" "vm_volume" {
   size   = each.value.volume_size
 }
 
+
 data "template_file" "user_data" {
   for_each = var.vm_rockylinux_definitions
 
-  template = file("${path.module}/${each.key}-user-data.tpl")
+  template = file("${path.module}/config/${each.key}-user-data.tpl")
 
   vars = {
     ssh_keys = join("\n  - ", var.ssh_keys)
