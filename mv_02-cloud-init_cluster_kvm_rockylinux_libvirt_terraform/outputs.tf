@@ -1,4 +1,4 @@
 # Output Server IP
-output "ip" {
-  value = libvirt_domain.rocky9.network_interface[0].addresses
+output "vm_ips" {
+  value = { for vm in libvirt_domain.vm : vm.key => vm.value.network_interface[0].addresses }
 }
