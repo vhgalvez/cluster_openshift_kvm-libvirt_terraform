@@ -21,3 +21,5 @@ sudo chmod 600 /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_clu
 ssh 192.168.122.46
 
 ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift serra@192.168.122.46 -p 22
+
+sudo ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift serra@192.168.122.249 -p 22
