@@ -20,7 +20,8 @@ resource "libvirt_domain" "vm" {
 }
 
 data "template_file" "meta_data" {
-  template = file("${path.module}/meta-data")
+  template = file("${path.module}/meta-data.tpl")
+
   vars = {
     instance-id    = var.rocky9_name
     local-hostname = var.rocky9_name
@@ -35,7 +36,7 @@ resource "libvirt_cloudinit_disk" "rocky9_cloudinit_disk" {
 }
 
 resource "libvirt_domain" "rocky9" {
-  name       = var.rocky9_domain_name
+  name       = var.rocky9_name
   memory     = var.rocky9_domain_memory
   vcpu       = var.rocky9_domain_vcpu
   qemu_agent = true
@@ -63,5 +64,6 @@ resource "libvirt_domain" "rocky9" {
   graphics {
     type        = "vnc"
     listen_type = "address"
+    autoport    = true
   }
 }
