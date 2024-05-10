@@ -8,8 +8,8 @@ vm_rockylinux_definitions = {
   "postgresql1"    = { cpus = 2, memory = 2048, ip = "10.17.3.20", cloudinit_disk = "rocky9_cloudinit_disk.iso", cloudinit_pool = "default", domain_memory = "4096", volume_format = "qcow2", volume_pool = "default", volume_size = "32212254720" },
 }
 
-cluster_name   = "cluster_cefaslocalserver"
-cluster_domain = "cefaslocalserver.com"
+cluster_name        = "cluster_cefaslocalserver"
+cluster_domain      = "cefaslocalserver.com"
 rocky9_network_name = "default"
 
 
