@@ -6,16 +6,20 @@ growpart:
 
 resize_rootfs: noblock
 
-users:
-  - name: default
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    groups: sudo
-    shell: /bin/bash
-  - name: core
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    groups: users, admin
-    shell: /bin/bash
-    ssh_authorized_keys:
-      - ${ssh_keys}
+chpasswd:
+  expire: false
+ssh_pwauth: true
+disable_root: false
 
-timezone: "Europe/London"
+users:
+  - default
+  - name: core
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: adm,wheel
+    passwd: $6$HE/RBjEb$dQXF27SB4..................
+    lock_passwd: false
+    ssh_authorized_keys:
+      ${ssh_keys}
+
+timezone: ${timezone}
