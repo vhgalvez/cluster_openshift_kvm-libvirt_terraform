@@ -14,9 +14,11 @@ data "template_file" "user_data" {
   template = file("${path.module}/config/${each.key}-user-data.tpl")
 
   vars = {
-    ssh_keys = join("\n  - ", var.ssh_keys)
+    ssh_keys = join("\n  - ", var.ssh_keys),
+    timezone = var.timezone # Asegúrate de que esto está agregado aquí.
   }
 }
+
 
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions

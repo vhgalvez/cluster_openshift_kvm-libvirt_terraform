@@ -23,6 +23,11 @@ variable "rocky9_network_name" {
   type        = string
 }
 
+variable "timezone" {
+  description = "The timezone for the VMs"
+  type        = string
+  default     = "Europe/London" # Puedes poner un valor por defecto o asegurarte de pasarlo en `terraform.tfvars`.
+}
 
 variable "vm_rockylinux_definitions" {
   description = "Definitions of virtual machines including CPU and memory configuration"
