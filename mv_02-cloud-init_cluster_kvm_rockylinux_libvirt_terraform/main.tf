@@ -5,17 +5,6 @@ resource "libvirt_network" "kube_network_02" {
   addresses = ["10.17.3.0/24"]
 }
 
-resource "null_resource" "ovs_setup" {
-  provisioner "remote-exec" {
-    inline = [
-      "sudo ovs-vsctl add-br br0",
-      "sudo ovs-vsctl add-port br0 eth0",
-      "sudo ip addr add 192.168.1.1/24 dev br0",
-      "sudo ip link set br0 up"
-    ]
-  }
-}
-
 
 resource "libvirt_pool" "volumetmp" {
   name = var.cluster_name
