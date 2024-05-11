@@ -1,9 +1,6 @@
 # output.tf
 
 
-output "vm_ips" {
-  value = {
-    for vm_id, vm in libvirt_domain.vm : vm_id =>
-    (length(vm.network_interface) > 0 && length(vm.network_interface[0].addresses) > 0 ? vm.network_interface[0].addresses[0] : "No IP Assigned")
-  }
+output "ip_addresses" {
+  value = { for key, machine in libvirt_domain.machine : key => machine.network_interface[0].addresses[0] if length(machine.network_interface[0].addresses) > 0 }
 }
