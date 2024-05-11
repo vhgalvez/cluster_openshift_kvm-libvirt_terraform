@@ -13,7 +13,7 @@ chpasswd:
   expire: false
   list:
     - name: core
-      password: 121441728
+      password: $6$mR6G9JRERv6q8R4u$m7fvml93xhr1TdOfugVx3usP6uegNfnCA2b1iUZCUj1dqEOSIW3YqY8j/hXcvGKIUHHWBVHUsY.2jivQmqirS/
 
 ssh_pwauth: true
 disable_root: false
@@ -22,7 +22,7 @@ users:
   - name: core
     shell: /bin/bash
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-    groups: adm, wheel
+    groups: [adm, wheel]
     lock_passwd: false
     ssh_authorized_keys: ${ssh_keys}
 
@@ -31,7 +31,7 @@ write_files:
       Managed by Terraform
     path: /etc/motd
     permissions: "0644"
-    owner: root:root
+    owner: "root:root"
 
 runcmd:
   - echo "Instance setup completed" >> /var/log/cloud-init-output.log
