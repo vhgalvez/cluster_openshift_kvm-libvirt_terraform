@@ -13,7 +13,7 @@ chpasswd:
   expire: false
   list:
     - name: core
-      password: 121441728
+      password: $6$Fd8WUN6j0.efRAEb$TxzDuV9ROit/g8OH5QEKwv.t/VxraZRHmiaF0uOUciXuGIsoHzeYqBtx5VpvGT9aqtOzH.cX6YuUZDD6ORkUU.
 
 ssh_pwauth: true
 disable_root: false
