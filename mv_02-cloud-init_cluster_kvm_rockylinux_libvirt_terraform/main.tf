@@ -11,9 +11,9 @@ resource "libvirt_pool" "volumetmp" {
   path = "/var/lib/libvirt/images/${var.cluster_name}"
 }
 
-resource "libvirt_volume" "base" {
+resource "libvirt_volume" "rocky9_image" {
   name   = "${var.cluster_name}-base"
-  source = var.base_image
+  source = var.rocky9_image
   pool   = libvirt_pool.volumetmp.name
   format = "qcow2"
 }
