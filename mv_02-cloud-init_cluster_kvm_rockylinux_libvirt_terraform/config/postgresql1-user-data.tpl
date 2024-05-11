@@ -1,4 +1,7 @@
 #cloud-config
+hostname: ${hostname}
+manage_etc_hosts: true
+
 growpart:
   mode: auto
   devices: ["/"]
@@ -8,18 +11,29 @@ resize_rootfs: noblock
 
 chpasswd:
   expire: false
+  list:
+  - core:RANDOM
+
 ssh_pwauth: true
 disable_root: false
 
 users:
-  - default
   - name: core
     shell: /bin/bash
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-    groups: adm,wheel
-    passwd: $6$HE/RBjEb$dQXF27SB4..................
+    groups: adm, wheel
     lock_passwd: false
     ssh_authorized_keys:
-      - ${ssh_keys}
+      ${ssh_keys}
+
+write_files:
+  - content: |
+      Managed by Terraform\n
+    path: /etc/motd
+    permissions: '0644'
+    owner: root:root
+
+runcmd:
+  - echo "Instance setup completed" >> /var/log/cloud-init-output.log
 
 timezone: ${timezone}
