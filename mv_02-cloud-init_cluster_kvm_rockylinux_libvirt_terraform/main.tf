@@ -21,8 +21,7 @@ resource "libvirt_volume" "rocky9_image" {
 data "template_file" "vm-configs" {
   for_each = var.vm_rockylinux_definitions
 
-  template = file("${path.module}/config/machine-${each.key}-user-data.tpl")
-
+  template = file("${path.module}/config/${each.key}-user-data.tpl")
   vars = {
     ssh_keys = jsonencode(var.ssh_keys),
     hostname = each.key,
