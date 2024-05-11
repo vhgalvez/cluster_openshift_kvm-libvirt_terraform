@@ -174,3 +174,37 @@
 | Máquina        | CPU (cores) | Memoria (MB) | IP         | Dominio                           | Sistema Operativo       |
 | -------------- | ----------- | ------------ | ---------- | --------------------------------- | ----------------------- |
 | Load Balancer1 | 1           | 1024         | 10.17.3.18 | loadbalancer.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
+
+
+## Tabla de Configuración de Redes
+
+| Red NAT  | Nodos             | Dirección IP | Rol del Nodo                                | Interfaz de Red    |
+|----------|-------------------|--------------|---------------------------------------------|--------------------|
+| NAT 01   | `bastion1`        | 10.17.3.10   | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`         |
+| NAT 01   | `freeipa1`        | 10.17.3.11   | Servidor de DNS y gestión de identidades   | (Virtual - NAT)    |
+| NAT 01   | `load_balancer1`  | 10.17.3.12   | Balanceo de carga para el clúster          | (Virtual - NAT)    |
+| NAT 01   | `postgresql1`     | 10.17.3.13   | Gestión de bases de datos                  | (Virtual - NAT)    |
+| NAT 02   | `bootstrap1`      | 10.17.3.20   | Inicialización del clúster                 | (Virtual - NAT)    |
+| NAT 02   | `master1`         | 10.17.3.21   | Gestión del clúster                        | (Virtual - NAT)    |
+| NAT 02   | `master2`         | 10.17.3.22   | Gestión del clúster                        | (Virtual - NAT)    |
+| NAT 02   | `master3`         | 10.17.3.23   | Gestión del clúster                        | (Virtual - NAT)    |
+| NAT 02   | `worker1`         | 10.17.3.24   | Ejecución de aplicaciones                  | (Virtual - NAT)    |
+| NAT 02   | `worker2`         | 10.17.3.25   | Ejecución de aplicaciones                  | (Virtual - NAT)    |
+| NAT 02   | `worker3`         | 10.17.3.26   | Ejecución de aplicaciones                  | (Virtual - NAT)    |
+
+## Interfaces Físicas de Red y Funcionalidad
+
+| Interfaz   | Dirección IP  | Descripción                                      |
+|------------|---------------|--------------------------------------------------|
+| `enp3s0f0` | 192.168.0.24  | Interfaz general del servidor                    |
+| `enp3s0f1` | 192.168.0.25  | Utilizada para Bridge en el nodo `bastion1`      |
+| `enp4s0f0` | 192.168.0.20  | Otra interfaz general del servidor               |
+| `enp4s0f1` | 192.168.0.26  | Reserva o conexión redundante                    |
+| `lo`       | 127.0.0.1     | Loopback, interfaz de red virtual para el localhost |
+
+## Detalles adicionales
+
+- Los nodos dentro de cada red NAT pueden comunicarse entre sí a través de sus direcciones IP asignadas. Sin embargo, la interacción entre nodos de diferentes redes NAT requiere configuración adicional en el enrutamiento o el uso de un nodo bastión configurado para permitir y gestionar dicho tráfico.
+- Consideraciones de seguridad, como firewalls y VLANs, deben ser tomadas en cuenta para proteger el tráfico que cruza diferentes segmentos de red y para garantizar la integridad y seguridad del clúster.
+- La infraestructura de red debe apoyar estas configuraciones, incluyendo soporte para Open vSwitch y capacidades avanzadas de NAT y bridging.
+- Este diseño propuesto permite una comprensión clara de cómo se pueden estructurar y gestionar eficazmente las redes dentro de un entorno de clúster, asegurando tanto la funcionalidad como la seguridad.
