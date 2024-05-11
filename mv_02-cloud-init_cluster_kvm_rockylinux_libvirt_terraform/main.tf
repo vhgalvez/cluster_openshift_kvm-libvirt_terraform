@@ -1,4 +1,5 @@
 # main.tf
+
 resource "libvirt_volume" "vm_volume" {
   for_each = var.vm_rockylinux_definitions
 
@@ -7,7 +8,6 @@ resource "libvirt_volume" "vm_volume" {
   format = each.value.volume_format
   size   = each.value.volume_size
 }
-
 
 data "template_file" "user_data" {
   for_each = var.vm_rockylinux_definitions
@@ -22,15 +22,13 @@ data "template_file" "user_data" {
   }
 }
 
-
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
-  name      = "${each.key}_cloudinit.iso" # Ensuring unique names
+  name      = "${each.key}_cloudinit.iso"
   pool      = each.value.cloudinit_pool
   user_data = data.template_file.user_data[each.key].rendered
 }
-
 
 resource "libvirt_domain" "vm" {
   for_each = var.vm_rockylinux_definitions
@@ -40,7 +38,9 @@ resource "libvirt_domain" "vm" {
   vcpu   = each.value.cpus
 
   network_interface {
-    network_name = var.rocky9_network_name
+    network_name   = var.rocky9_network_name
+    wait_for_lease = true
+    addresses      = [each.value.ip] # Ensure IP assignment
   }
 
   disk {
