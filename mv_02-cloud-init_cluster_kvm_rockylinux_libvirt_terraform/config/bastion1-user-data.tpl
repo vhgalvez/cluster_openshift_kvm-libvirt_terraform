@@ -15,11 +15,10 @@ users:
   - default
   - name: core
     shell: /bin/bash
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     groups: adm,wheel
     passwd: $6$HE/RBjEb$dQXF27SB4..................
     lock_passwd: false
-    ssh_authorized_keys:
-      ${ssh_keys}
+    ssh_authorized_keys: ${ssh_keys}
 
 timezone: ${timezone}
