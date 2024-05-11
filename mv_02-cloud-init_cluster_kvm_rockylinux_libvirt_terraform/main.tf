@@ -37,7 +37,8 @@ resource "libvirt_domain" "vm" {
   vcpu   = each.value.cpus
 
   network_interface {
-    network_name = var.rocky9_network_name
+    network_name   = var.rocky9_network_name
+    wait_for_lease = true
   }
 
   disk {
