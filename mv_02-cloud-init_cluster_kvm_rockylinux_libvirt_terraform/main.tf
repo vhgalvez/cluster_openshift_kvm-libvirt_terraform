@@ -12,7 +12,7 @@ resource "libvirt_pool" "volumetmp" {
 }
 
 resource "libvirt_volume" "rocky9_image" {
-  name   = "${var.cluster_name}-base"
+  name   = "${var.cluster_name}-rocky9_image"
   source = var.rocky9_image
   pool   = libvirt_pool.volumetmp.name
   format = "qcow2"
@@ -42,7 +42,7 @@ resource "libvirt_volume" "vm_disk" {
   for_each = var.vm_rockylinux_definitions
 
   name           = "${each.key}-${var.cluster_name}.qcow2"
-  base_volume_id = libvirt_volume.base.id
+  base_volume_id = libvirt_volume.rocky9_image.id
   pool           = libvirt_pool.volumetmp.name
   format         = "qcow2"
 }
