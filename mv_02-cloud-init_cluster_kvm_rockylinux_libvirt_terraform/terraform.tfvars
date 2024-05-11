@@ -39,7 +39,7 @@ vm_rockylinux_definitions = {
     volume_format  = "qcow2",
     volume_pool    = "default",
     volume_size    = "32212254720"
-    hostname       = "loadbalancer1"
+    hostname       = "load_balancer1"
   },
   "postgresql1" = {
     cpus           = 2,
