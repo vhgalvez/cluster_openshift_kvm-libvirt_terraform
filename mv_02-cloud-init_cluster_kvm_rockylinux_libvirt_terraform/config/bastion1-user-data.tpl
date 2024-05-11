@@ -19,6 +19,7 @@ users:
     groups: adm,wheel
     passwd: $6$HE/RBjEb$dQXF27SB4..................
     lock_passwd: false
-    ssh_authorized_keys: ${ssh_keys}
+    ssh_authorized_keys:
+      - ${ssh_keys}
 
 timezone: ${timezone}
