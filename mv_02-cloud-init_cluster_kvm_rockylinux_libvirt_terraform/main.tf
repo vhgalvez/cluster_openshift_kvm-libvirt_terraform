@@ -15,7 +15,7 @@ data "template_file" "user_data" {
 
   vars = {
     ssh_keys = join("\n  - ", var.ssh_keys),
-    timezone = var.timezone # Asegúrate de que esto está agregado aquí.
+    timezone = var.timezone // Asegúrate de que esta línea esté agregada aquí.
   }
 }
 
