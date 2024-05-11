@@ -13,6 +13,7 @@ vm_rockylinux_definitions = {
     volume_format  = "qcow2",
     volume_pool    = "default",
     volume_size    = "32212254720"
+    hostname       = "bastion1"
   },
   "freeipa1" = {
     cpus           = 2,
@@ -25,6 +26,7 @@ vm_rockylinux_definitions = {
     volume_format  = "qcow2",
     volume_pool    = "default",
     volume_size    = "32212254720"
+    hostname       = "freeipa1"
   },
   "load_balancer1" = {
     cpus           = 2,
@@ -37,6 +39,7 @@ vm_rockylinux_definitions = {
     volume_format  = "qcow2",
     volume_pool    = "default",
     volume_size    = "32212254720"
+    hostname       = "loadbalancer1"
   },
   "postgresql1" = {
     cpus           = 2,
@@ -49,6 +52,7 @@ vm_rockylinux_definitions = {
     volume_format  = "qcow2",
     volume_pool    = "default",
     volume_size    = "32212254720"
+    hostname       = "postgresql1"
   }
 }
 

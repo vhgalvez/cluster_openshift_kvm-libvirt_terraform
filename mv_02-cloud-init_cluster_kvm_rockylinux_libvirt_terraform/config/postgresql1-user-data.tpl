@@ -12,7 +12,8 @@ resize_rootfs: noblock
 chpasswd:
   expire: false
   list:
-  - core:RANDOM
+    - name: core
+      password: 121441728
 
 ssh_pwauth: true
 disable_root: false
@@ -23,14 +24,13 @@ users:
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     groups: adm, wheel
     lock_passwd: false
-    ssh_authorized_keys:
-      ${ssh_keys}
+    ssh_authorized_keys: ${ssh_keys}
 
 write_files:
   - content: |
-      Managed by Terraform\n
+      Managed by Terraform
     path: /etc/motd
-    permissions: '0644'
+    permissions: "0644"
     owner: root:root
 
 runcmd:

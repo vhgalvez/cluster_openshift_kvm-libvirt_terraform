@@ -41,5 +41,6 @@ variable "vm_rockylinux_definitions" {
     volume_pool    = string
     volume_size    = string
     volume_name    = string
+    hostname       = string
   }))
 }
