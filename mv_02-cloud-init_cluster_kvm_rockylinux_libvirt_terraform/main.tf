@@ -16,7 +16,10 @@ data "template_file" "user_data" {
 
   vars = {
     ssh_keys = join("\n  - ", var.ssh_keys),
-  ip = each.value.ip, }
+    ip       = each.value.ip,
+    hostname = each.key,
+    timezone = var.timezone,
+  }
 }
 
 
