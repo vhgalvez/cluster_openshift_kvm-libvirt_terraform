@@ -1,3 +1,4 @@
+# main.tf
 resource "libvirt_volume" "vm_volume" {
   for_each = var.vm_rockylinux_definitions
 
@@ -15,8 +16,7 @@ data "template_file" "user_data" {
 
   vars = {
     ssh_keys = join("\n  - ", var.ssh_keys),
-    timezone = var.timezone // Asegúrate de que esta línea esté agregada aquí.
-  }
+    ip       = each.value.ip,}
 }
 
 
