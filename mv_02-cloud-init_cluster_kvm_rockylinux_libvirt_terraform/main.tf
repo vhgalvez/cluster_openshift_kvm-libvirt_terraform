@@ -8,7 +8,6 @@ resource "libvirt_volume" "vm_volume" {
   size   = each.value.volume_size
 }
 
-
 data "template_file" "user_data" {
   for_each = var.vm_rockylinux_definitions
 
@@ -16,18 +15,19 @@ data "template_file" "user_data" {
 
   vars = {
     ssh_keys = join("\n  - ", var.ssh_keys),
-    ip       = each.value.ip,}
+    ip       = each.value.ip,
+    hostname = each.key,
+    timezone = var.timezone,
+  }
 }
-
 
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
-  name      = "${each.key}_cloudinit.iso" # Ensuring unique names
+  name      = "${each.key}_cloudinit.iso"
   pool      = each.value.cloudinit_pool
   user_data = data.template_file.user_data[each.key].rendered
 }
-
 
 resource "libvirt_domain" "vm" {
   for_each = var.vm_rockylinux_definitions

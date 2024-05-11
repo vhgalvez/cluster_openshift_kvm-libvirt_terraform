@@ -22,7 +22,11 @@ variable "rocky9_network_name" {
   description = "The network name for the VMs"
   type        = string
 }
-
+variable "timezone" {
+  description = "Timezone for the infrastructure"
+  type        = string
+  default     = "Europe/London"
+}
 
 variable "vm_rockylinux_definitions" {
   description = "Definitions of virtual machines including CPU and memory configuration"
