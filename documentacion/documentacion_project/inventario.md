@@ -202,6 +202,7 @@
 | `enp4s0f1` | 192.168.0.18  | Reserva o conexión redundante                    |
 | `lo`       | 127.0.0.1     | Loopback, interfaz de red virtual para el localhost |
 
+192.168.0.25/24
 
 ## Tabla de Redes
 
