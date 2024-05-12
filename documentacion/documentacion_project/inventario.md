@@ -180,7 +180,7 @@
 
 | Red NAT           | Nodos             | Dirección IP | Rol del Nodo                                | Interfaz de Red     |
 |-------------------|-------------------|--------------|---------------------------------------------|---------------------|
-| kube_network_01   | `bastion1`        |              | Acceso seguro, Punto de conexión de bridge  | `enp3s0f1`          |
+| kube_network_01   | `bastion1`        | 192.168.0.21 | Acceso seguro, Punto de conexión de bridge  | `enp3s0f1`          |
 | kube_network_02   | `freeipa1`        | 10.17.3.11   | Servidor de DNS y gestión de identidades    | (Virtual - NAT)     |
 | kube_network_02   | `load_balancer1`  | 10.17.3.12   | Balanceo de carga para el clúster           | (Virtual - NAT)     |
 | kube_network_02   | `postgresql1`     | 10.17.3.13   | Gestión de bases de datos                   | (Virtual - NAT)     |
@@ -196,10 +196,10 @@
 
 | Interfaz   | Dirección IP  | Descripción                                      |
 |------------|---------------|--------------------------------------------------|
-| `enp3s0f0` | 192.168.0.24  | Interfaz general del servidor                    |
-| `enp3s0f1` | 192.168.0.25  | Utilizada para Bridge en el nodo `bastion1`      |
+| `enp3s0f0` | 192.168.0.15  | Interfaz general del servidor                    |
+| `enp3s0f1` | 192.168.0.16  | Utilizada para Bridge en el nodo `bastion1`      |
 | `enp4s0f0` | 192.168.0.20  | Otra interfaz general del servidor               |
-| `enp4s0f1` | 192.168.0.26  | Reserva o conexión redundante                    |
+| `enp4s0f1` | 192.168.0.18  | Reserva o conexión redundante                    |
 | `lo`       | 127.0.0.1     | Loopback, interfaz de red virtual para el localhost |
 
 
