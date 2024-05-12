@@ -58,3 +58,6 @@ To delete an existing volume if it's no longer needed:
 bash
 Copy code
 virsh vol-delete --pool default rocky9_cloudinit_disk.iso
+
+
+sudo chmod +x mv_03_show_terraform_configs.sh
