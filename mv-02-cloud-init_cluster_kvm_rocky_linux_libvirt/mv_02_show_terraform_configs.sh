@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the directory containing your Terraform configuration files
-TERRAFORM_DIR="/home/victory/infra_code/cluster_openshift_kvm-libvirt_terraform/mv_02-cloud-init_cluster_kvm_rockylinux_libvirt_terraform"
+TERRAFORM_DIR="/home/victory/infra_code/cluster_openshift_kvm-libvirt_terraform/mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt"
 
 # Define the config directory path
 CONFIG_DIR="$TERRAFORM_DIR/config"
