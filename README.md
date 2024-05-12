@@ -161,11 +161,11 @@
 
 #### kube_network_02 - NAT Network
 
-| Máquina      | CPU (cores) | Memoria (MB) | IP         | Dominio                            | Sistema Operativo       |
-|--------------|-------------|--------------|------------|------------------------------------|-------------------------|
-| FreeIPA1     | 2           | 2048         | 10.17.3.11 | freeipa1.cefaslocalserver.com      | Rocky Linux 9.3 Minimal |
-| LoadBalancer1| 2           | 2048         | 10.17.3.12 | loadbalancer1.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
-| PostgreSQL1  | 2           | 2048         | 10.17.3.13 | postgresql1.cefaslocalserver.com   | Rocky Linux 9.3 Minimal |
+| Máquina      | CPU (cores) | Memoria (MB) | IP         | Dominio                            | Sistema Operativo |
+|--------------|-------------|--------------|------------|------------------------------------|-------------------|
+| FreeIPA1     | 2           | 2048         | 10.17.3.11 | freeipa1.cefaslocalserver.com      | Rocky Linux 9.3   |
+| LoadBalancer1| 2           | 2048         | 10.17.3.12 | loadbalancer1.cefaslocalserver.com | Rocky Linux 9.3   |
+| PostgreSQL1  | 2           | 2048         | 10.17.3.13 | postgresql1.cefaslocalserver.com   | Rocky Linux 9.3   |
 
 #### kube_network_03 - NAT Network
 
@@ -212,21 +212,21 @@
 
 
 ```hcl
-# Red kube_network_01 - Bridge Network
+# Red kube_network_01 - Bridge Network - Rocky Linux 9.3
 resource "libvirt_network" "kube_network_01" {
   name   = "kube_network_01"
   mode   = "bridge"
   bridge = "br0"
 }
 
-# Red kube_network_02 - NAT Network
+# Red kube_network_02 - NAT Network - Rocky Linux 9.3
 resource "libvirt_network" "kube_network_02" {
   name      = "kube_network_02"
   mode      = "nat"
   addresses = ["10.17.3.0/24"]
 }
 
-# Red kube_network_03 - NAT Network
+# Red kube_network_03 - NAT Network - Flatcar Container Linux
 resource "libvirt_network" "kube_network_03" {
   name      = "kube_network_03"
   mode      = "nat"

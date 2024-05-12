@@ -20,7 +20,9 @@ sudo ip addr add 192.168.0.25/24 dev br0
 
 
 sudo ovs-vsctl del-br br0
+
 sudo systemctl stop openvswitch
+
 sudo systemctl disable openvswitch
 
 
