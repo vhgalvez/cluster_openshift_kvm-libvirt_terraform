@@ -14,7 +14,7 @@ Estos comandos crean un bridge llamado br0 y lo activan.
 Si necesitas que el bridge br0 tenga una dirección IP en tu red local (para facilitar el acceso directo, por ejemplo), puedes asignarle una dirección IP estática. Sin embargo, esto puede ser gestionado externamente a Terraform si es necesario para no complicar los scripts de Terraform:
 
 ```bash
-sudo ip addr add 192.168.0.25/24 dev br0
+sudo ip addr add 192.168.0.27/24 dev br0
 ```
 
 
@@ -59,3 +59,7 @@ sudo ip link set enp3s0f1 up
 
 # Verificar la configuración
 sudo ovs-vsctl show
+
+
+
+ovs-vsctl list-ports br0
