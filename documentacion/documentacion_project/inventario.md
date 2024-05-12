@@ -107,15 +107,8 @@
   - **/dev/sda2**: 1014M (718M usado)
   - **/dev/mapper/rl-home**: 3.0T (25G usado)
   
-### Configuración de VLANs y Redes Virtuales
+### Configuración de Redes Virtuales
 
-- **VLAN 101**: Bootstrap Node 1
-- **VLAN 102**: Master Nodes 3
-- **VLAN 103**: Worker Nodes 3
-- **VLAN 104**: Bastion Node 1
-- **VLAN 105**: PostgreSQL Node 1
-- **VLAN 106**: Load Balancer Traefik Node 1  
-- **VLAN 107**: FreeIPA Node 1
 
 
 ## Red y Conectividad
@@ -178,19 +171,57 @@
 
 ## Tabla de Configuración de Redes
 
-| Red NAT           | Nodos             | Dirección IP | Rol del Nodo                                | Interfaz de Red     |
-|-------------------|-------------------|--------------|---------------------------------------------|---------------------|
-| kube_network_01   | `bastion1`        |              | Acceso seguro, Punto de conexión de bridge  | `enp3s0f1`          |
-| kube_network_02   | `freeipa1`        | 10.17.3.11   | Servidor de DNS y gestión de identidades    | (Virtual - NAT)     |
-| kube_network_02   | `load_balancer1`  | 10.17.3.12   | Balanceo de carga para el clúster           | (Virtual - NAT)     |
-| kube_network_02   | `postgresql1`     | 10.17.3.13   | Gestión de bases de datos                   | (Virtual - NAT)     |
-| kube_network_03   | `bootstrap1`      | 10.17.3.20   | Inicialización del clúster                  | (Virtual - NAT)     |
-| kube_network_03   | `master1`         | 10.17.3.21   | Gestión del clúster                         | (Virtual - NAT)     |
-| kube_network_03   | `master2`         | 10.17.3.22   | Gestión del clúster                         | (Virtual - NAT)     |
-| kube_network_03   | `master3`         | 10.17.3.23   | Gestión del clúster                         | (Virtual - NAT)     |
-| kube_network_03   | `worker1`         | 10.17.3.24   | Ejecución de aplicaciones                   | (Virtual - NAT)     |
-| kube_network_03   | `worker2`         | 10.17.3.25   | Ejecución de aplicaciones                   | (Virtual - NAT)     |
-| kube_network_03   | `worker3`         | 10.17.3.26   | Ejecución de aplicaciones                   | (Virtual - NAT)     |
+### Tabla de Configuración de Redes - kube_network_01
+
+| Red NAT          | Nodos      | Dirección IP | Rol del Nodo                               | Interfaz de Red |
+|------------------|------------|--------------|--------------------------------------------|-----------------|
+| kube_network_01  | `bastion1` |              | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
+
+### Tabla de Configuración de Redes - kube_network_02
+
+| Red NAT          | Nodos               | Dirección IP | Rol del Nodo                       | Interfaz de Red  |
+|------------------|---------------------|--------------|------------------------------------|------------------|
+| kube_network_02  | `freeipa1`          | 10.17.3.11   | Servidor de DNS y gestión de identidades | (Virtual - NAT)  |
+| kube_network_02  | `load_balancer1`    | 10.17.3.12   | Balanceo de carga para el clúster  | (Virtual - NAT)  |
+| kube_network_02  | `postgresql1`       | 10.17.3.13   | Gestión de bases de datos          | (Virtual - NAT)  |
+
+### Tabla de Configuración de Redes - kube_network_03
+
+| Red NAT          | Nodos               | Dirección IP | Rol del Nodo               | Interfaz de Red  |
+|------------------|---------------------|--------------|----------------------------|------------------|
+| kube_network_03  | `bootstrap1`        | 10.17.4.20   | Inicialización del clúster | (Virtual - NAT)  |
+| kube_network_03  | `master1`           | 10.17.4.21   | Gestión del clúster        | (Virtual - NAT)  |
+| kube_network_03  | `master2`           | 10.17.4.22   | Gestión del clúster        | (Virtual - NAT)  |
+| kube_network_03  | `master3`           | 10.17.4.23   | Gestión del clúster        | (Virtual - NAT)  |
+| kube_network_03  | `worker1`           | 10.17.4.24   | Ejecución de aplicaciones  | (Virtual - NAT)  |
+| kube_network_03  | `worker2`           | 10.17.4.25   | Ejecución de aplicaciones  | (Virtual - NAT)  |
+| kube_network_03  | `worker3`           | 10.17.4.26   | Ejecución de aplicaciones  | (Virtual - NAT)  |
+
+### Recursos Terraform para la configuración de redes
+
+
+```hcl
+# Red kube_network_01 - Bridge Network
+resource "libvirt_network" "kube_network_01" {
+  name   = "kube_network_01"
+  mode   = "bridge"
+  bridge = "br0"
+}
+
+# Red kube_network_02 - NAT Network
+resource "libvirt_network" "kube_network_02" {
+  name      = "kube_network_02"
+  mode      = "nat"
+  addresses = ["10.17.3.0/24"]
+}
+
+# Red kube_network_03 - NAT Network
+resource "libvirt_network" "kube_network_03" {
+  name      = "kube_network_03"
+  mode      = "nat"
+  addresses = ["10.17.4.0/24"]
+}
+```
 
 ## Interfaces Físicas de Red y Funcionalidad
 
