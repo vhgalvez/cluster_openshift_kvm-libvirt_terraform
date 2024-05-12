@@ -17,7 +17,7 @@ Crear el Archivo de Configuración del Puente
 A pesar de que Rocky Linux usa NetworkManager por defecto, para configuraciones estables y detalladas de puentes es recomendable manejarlos a través de archivos en /etc/sysconfig/network-scripts/:
 
 ```bash
-sudo vi /etc/sysconfig/network-scripts/ifcfg-br0
+sudo vim /etc/sysconfig/network-scripts/ifcfg-br0
 ```
 
 Incluye lo siguiente en el archivo `ifcfg-br0`:
