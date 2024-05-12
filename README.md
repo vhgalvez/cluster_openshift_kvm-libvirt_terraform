@@ -246,7 +246,6 @@ resource "libvirt_network" "kube_network_03" {
 | lo        | 127.0.0.1       | 255.0.0.0       | -                | Loopback, interfaz de red virtual        | Tráfico local solo                |
 | virbr0    | 192.168.122.1   | 255.255.255.0   | 192.168.122.255  | Interfaz de red virtual por defecto      | Usado típicamente por KVM         |
 
-
 ## Detalles adicionales
 
 - Los nodos dentro de cada red NAT pueden comunicarse entre sí a través de sus direcciones IP asignadas. Sin embargo, la interacción entre nodos de diferentes redes NAT requiere configuración adicional en el enrutamiento o el uso de un nodo bastión configurado para permitir y gestionar dicho tráfico.
