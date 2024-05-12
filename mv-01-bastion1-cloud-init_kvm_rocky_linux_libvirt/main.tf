@@ -1,20 +1,4 @@
-# Initial setup for Open vSwitch and bridge configuration using local-exec
-resource "null_resource" "ovs_setup" {
-  # Executes commands to set up the bridge with Open vSwitch
-  provisioner "local-exec" {
-    command = <<EOF
-      sudo ovs-vsctl init
-      sudo ovs-vsctl add-br br0
-      sudo ip addr add 192.168.0.25/24 dev br0
-      sudo ip link set br0 up
-EOF
-  }
 
-  # Ensures this resource is executed before VMs are created
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-}
 
 # Define the Virtual Network in libvirt using the created bridge
 resource "libvirt_network" "kube_network_01" {

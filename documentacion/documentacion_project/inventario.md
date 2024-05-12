@@ -194,15 +194,6 @@
 
 ## Interfaces Físicas de Red y Funcionalidad
 
-| Interfaz   | Dirección IP  | Descripción                                      |
-|------------|---------------|--------------------------------------------------|
-| `enp3s0f0` | 192.168.0.15  | Interfaz general del servidor                    |
-| `enp3s0f1` | 192.168.0.16  | Utilizada para Bridge en el nodo `bastion1`      |
-| `enp4s0f0` | 192.168.0.20  | Otra interfaz general del servidor               |
-| `enp4s0f1` | 192.168.0.18  | Reserva o conexión redundante                    |
-| `lo`       | 127.0.0.1     | Loopback, interfaz de red virtual para el localhost |
-
-192.168.0.25/24
 
 ## Tabla de Redes
 
