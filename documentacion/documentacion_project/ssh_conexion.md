@@ -27,6 +27,12 @@ sudo ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_clu
 sudo ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift core@192.168.122.10 -p 22
 
 
+sudo ssh -v -i /root/.ssh/cluster_openshift/key_cluster_openshift/id_rsa_key_cluster_openshift core@192.168.0.27 -p 22
+
+
+
+
+
 - Generación de Contraseña Hash:
 La contraseña para el usuario core debe estar en formato hash.
 Puedes generar un hash de contraseña usando el comando mkpasswd --method=SHA-512. El ejemplo anterior usa un hash ficticio.
