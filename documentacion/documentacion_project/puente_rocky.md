@@ -107,7 +107,6 @@ Si encuentras errores durante la configuración o el uso, verifica los permisos 
 
 ```bash
 sudo journalctl -u libvirtd
-
 ```
 
 Revisa también la configuración de SELinux, que puede necesitar ajustes si está bloqueando algunas operaciones de red.
