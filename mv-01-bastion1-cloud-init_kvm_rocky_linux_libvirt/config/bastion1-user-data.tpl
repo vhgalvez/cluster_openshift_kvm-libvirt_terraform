@@ -1,26 +1,16 @@
 #cloud-config
+
 # Configuración básica del host
 hostname: ${hostname}
 manage_etc_hosts: true
 timezone: ${timezone}
-
-#cloud-config
-hostname: ${hostname}
-manage_etc_hosts: true
-
-growpart:
-  mode: auto
-  devices: ["/"]
-  ignore_growroot_disabled: false
-
-resize_rootfs: true
-
 
 # Expansión del sistema de archivos y configuración de partición
 growpart:
   mode: auto
   devices: ["/"]
   ignore_growroot_disabled: false
+
 resize_rootfs: true
 
 # Configuración de usuario y autenticación
@@ -41,10 +31,9 @@ users:
 
 # Configuración de red, utilizando contenido codificado en base64
 write_files:
-  - encoding: b64 
-  path: /etc/sysconfig/network-scripts/ifcfg-eth0
+  - path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    encoding: b64
     content: VFlQRT0iRXRoZXJuZXQiClBST1hZX01FVEhPRD0ibm9uZSIKQlJPV1NFUl9PTkxZPSJubyIKQk9PVFBST1RPPSJub25lIgpERUZST1VURT0ieWVzIgpJUFY0X0ZBSUxVUkVfRkFUQUw9Im5vIgpJUFY2SU5JVD0ibm8iCk5BTUU9ImV0aDAiCkRFVklDRT0iZXRoMCIKT05CT09UPSJ5ZXMiCklQQUREUj0iMTkyLjE2OC4wLjI3IgpQUkVGSVg9IjI0IgpHQVRFV0FZPSIxOTIuMTY4LjAuMSIKRE5TMT0iOC44LjguOCIKRE5TMj0iOC44LjQuNCI
-      
     owner: root:root
     permissions: "0644"
 
@@ -57,4 +46,4 @@ write_files:
 # Comandos a ejecutar después de la primera carga
 runcmd:
   - echo "Instance setup completed" >> /var/log/cloud-init-output.log
-  - [ /etc/rc.local.rebootonce ]
+  - [/etc/rc.local.rebootonce]
