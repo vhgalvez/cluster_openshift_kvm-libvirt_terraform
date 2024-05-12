@@ -58,10 +58,11 @@ Aplica los cambios reiniciando los servicios de red:
 
 ```bash
 sudo systemctl restart NetworkManager
+```
 
 ## 4. Verificación de la Configuración del Puente
-Verifica que el puente esté correctamente configurado y operativo:
 
+Verifica que el puente esté correctamente configurado y operativo:
 
 ```bash
 ip addr show br0
@@ -71,7 +72,6 @@ Deberías ver la dirección IP asignada junto con otros detalles de configuraci�
 ## 5. Integración con libvirt
 
 Asegúrate de que libvirt está configurado para usar el puente correctamente. Instala libvirt y KVM si aún no están en el sistema:
-
 
 ```bash 
 sudo dnf install libvirt qemu-kvm
