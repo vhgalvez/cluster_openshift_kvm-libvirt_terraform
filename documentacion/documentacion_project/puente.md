@@ -42,3 +42,17 @@ resource "null_resource" "ovs_setup" {
     EOF
   }
 }
+
+
+# Crear un puente llamado br0
+sudo ip link add name br0 type bridge
+
+# Conectar interfaces al puente
+sudo ip link set enp3s0f1 master br0
+
+# Asignar dirección IP al puente (si es necesario)
+sudo ip addr add 192.168.0.24/24 dev br0
+
+# Activar el puente y las interfaces
+sudo ip link set br0 up
+sudo ip link set enp3s0f1 up

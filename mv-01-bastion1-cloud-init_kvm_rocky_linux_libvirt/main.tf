@@ -1,3 +1,12 @@
+resource "null_resource" "ovs_setup" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    command = "echo Configurando Open vSwitch o alguna otra operación necesaria"
+  }
+}
 # Define the Virtual Network in libvirt using the created bridge
 resource "libvirt_network" "kube_network_01" {
   name   = "kube_network_01"
