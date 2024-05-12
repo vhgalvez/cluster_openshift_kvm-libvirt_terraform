@@ -128,45 +128,61 @@
   - **Bastion Node**: 1 CPU, 1024 MB, seguridad y acceso
   - **Load Balancer**: 1 CPU, 1024 MB, con Traefik
 
-### VLAN 101: Bootstrapping
+## Redes Virtuales y Configuración
 
-| Máquina    | CPU (cores) | Memoria (MB) | IP         | Dominio                        | Sistema Operativo       |
-| ---------- | ----------- | ------------ | ---------- | ------------------------------ | ----------------------- |
-| Bootstrap1 | 1           | 1024         | 10.17.3.10 | bootstrap.cefaslocalserver.com | Flatcar Container Linux |
+## Tabla de Configuración de Redes - kube_network_01 - Bridge Network
 
-### VLAN 102: Masters
+| Red NAT        | Nodos    | Dirección IP | Rol del Nodo                           | Interfaz de Red |
+|----------------|----------|--------------|----------------------------------------|-----------------|
+| kube_network_01 | bastion1 |              | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
 
-| Máquina | CPU (cores) | Memoria (MB) | IP         | Dominio                      | Sistema Operativo       |
-| ------- | ----------- | ------------ | ---------- | ---------------------------- | ----------------------- |
-| Master1 | 2           | 2048         | 10.17.3.11 | master1.cefaslocalserver.com | Flatcar Container Linux |
-| Master2 | 2           | 2048         | 10.17.3.12 | master2.cefaslocalserver.com | Flatcar Container Linux |
-| Master3 | 2           | 2048         | 10.17.3.13 | master3.cefaslocalserver.com | Flatcar Container Linux |
+## Tabla de Configuración de Redes - kube_network_02 - NAT Network
 
-### VLAN 103: Workers
+| Red NAT        | Nodos          | Dirección IP | Rol del Nodo                           | Interfaz de Red   |
+|----------------|----------------|--------------|----------------------------------------|-------------------|
+| kube_network_02 | freeipa1       | 10.17.3.11   | Servidor de DNS y gestión de identidades | (Virtual - NAT) |
+| kube_network_02 | load_balancer1 | 10.17.3.12   | Balanceo de carga para el clúster         | (Virtual - NAT) |
+| kube_network_02 | postgresql1    | 10.17.3.13   | Gestión de bases de datos                 | (Virtual - NAT) |
 
-| Máquina | CPU (cores) | Memoria (MB) | IP         | Dominio                      | Sistema Operativo       |
-| ------- | ----------- | ------------ | ---------- | ---------------------------- | ----------------------- |
-| Worker1 | 2           | 2048         | 10.17.3.14 | worker1.cefaslocalserver.com | Flatcar Container Linux |
-| Worker2 | 2           | 2048         | 10.17.3.15 | worker2.cefaslocalserver.com | Flatcar Container Linux |
-| Worker3 | 2           | 2048         | 10.17.3.16 | worker3.cefaslocalserver.com | Flatcar Container Linux |
+## Tabla de Configuración de Redes - kube_network_03 - NAT Network
 
-### VLAN 104: Management and Utility
+| Red NAT        | Nodos        | Dirección IP | Rol del Nodo          | Interfaz de Red   |
+|----------------|--------------|--------------|-----------------------|-------------------|
+| kube_network_03 | bootstrap1   | 10.17.4.20   | Inicialización del clúster | (Virtual - NAT) |
+| kube_network_03 | master1      | 10.17.4.21   | Gestión del clúster   | (Virtual - NAT)   |
+| kube_network_03 | master2      | 10.17.4.22   | Gestión del clúster   | (Virtual - NAT)   |
+| kube_network_03 | master3      | 10.17.4.23   | Gestión del clúster   | (Virtual - NAT)   |
+| kube_network_03 | worker1      | 10.17.4.24   | Ejecución de aplicaciones | (Virtual - NAT) |
+| kube_network_03 | worker2      | 10.17.4.25   | Ejecución de aplicaciones | (Virtual - NAT) |
+| kube_network_03 | worker3      | 10.17.4.26   | Ejecución de aplicaciones | (Virtual - NAT) |
 
-| Máquina  | CPU (cores) | Memoria (MB) | IP         | Dominio                      | Modo de Red | Sistema Operativo       |
-| -------- | ----------- | ------------ | ---------- | ---------------------------- | ----------- | ----------------------- |
-| Bastion1 | 1           | 1024         | 10.17.3.21 | bastion.cefaslocalserver.com | Bridge      | Rocky Linux 9.3 Minimal |
+### Detalles de las Máquinas Virtuales por Red
 
-### VLAN 105: Storage and Databases
+#### kube_network_01 - Bridge Network
 
-| Máquina     | CPU (cores) | Memoria (MB) | IP         | Dominio                         | Sistema Operativo       |
-| ----------- | ----------- | ------------ | ---------- | ------------------------------- | ----------------------- |
-| PostgreSQL1 | 1           | 1024         | 10.17.3.20 | postgresql.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
+| Máquina  | CPU (cores) | Memoria (MB) | IP | Dominio                          | Sistema Operativo       |
+|----------|-------------|--------------|----|----------------------------------|-------------------------|
+| Bastion1 | 1           | 1024         |    | bastion.cefaslocalserver.com     | Rocky Linux 9.3 Minimal |
 
-### VLAN 106: Load Balancing
+#### kube_network_02 - NAT Network
 
-| Máquina        | CPU (cores) | Memoria (MB) | IP         | Dominio                           | Sistema Operativo       |
-| -------------- | ----------- | ------------ | ---------- | --------------------------------- | ----------------------- |
-| Load Balancer1 | 1           | 1024         | 10.17.3.18 | loadbalancer.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
+| Máquina      | CPU (cores) | Memoria (MB) | IP         | Dominio                            | Sistema Operativo       |
+|--------------|-------------|--------------|------------|------------------------------------|-------------------------|
+| FreeIPA1     | 2           | 2048         | 10.17.3.11 | freeipa1.cefaslocalserver.com      | Rocky Linux 9.3 Minimal |
+| LoadBalancer1| 2           | 2048         | 10.17.3.12 | loadbalancer1.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
+| PostgreSQL1  | 2           | 2048         | 10.17.3.13 | postgresql1.cefaslocalserver.com   | Rocky Linux 9.3 Minimal |
+
+#### kube_network_03 - NAT Network
+
+| Máquina   | CPU (cores) | Memoria (MB) | IP         | Dominio                          | Sistema Operativo       |
+|-----------|-------------|--------------|------------|----------------------------------|-------------------------|
+| Bootstrap1| 2           | 2048         | 10.17.4.20 | bootstrap1.cefaslocalserver.com  | Flatcar Container Linux |
+| Master1   | 2           | 2048         | 10.17.4.21 | master1.cefaslocalserver.com     | Flatcar Container Linux |
+| Master2   | 2           | 2048         | 10.17.4.22 | master2.cefaslocalserver.com     | Flatcar Container Linux |
+| Master3   | 2           | 2048         | 10.17.4.23 | master3.cefaslocalserver.com     | Flatcar Container Linux |
+| Worker1   | 2           | 2048         | 10.17.4.24 | worker1.cefaslocalserver.com     | Flatcar Container Linux |
+| Worker2   | 2           | 2048         | 10.17.4.25 | worker2.cefaslocalserver.com     | Flatcar Container Linux |
+| Worker3   | 2           | 2048         | 10.17.4.26 | worker3.cefaslocalserver.com     | Flatcar Container Linux |
 
 
 ## Tabla de Configuración de Redes
