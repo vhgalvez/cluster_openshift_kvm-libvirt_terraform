@@ -1,3 +1,18 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 TYPE="Ethernet"
 PROXY_METHOD="none"
 BROWSER_ONLY="no"
@@ -50,3 +65,81 @@ GATEWAY=192.168.0.1
 DNS1=8.8.8.8
 DNS2=8.8.4.4
 
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=false
+GRUB_TERMINAL="console"
+#GRUB_TERMINAL="console serial"
+GRUB_SERIAL_COMMAND="serial --speed=115200"
+#GRUB_CMDLINE_LINUX="ipv6.disable=1 console=tty1 earlyprintk=ttyS0 crashkernel=auto console=ttyS0,115200"
+GRUB_CMDLINE_LINUX="ipv6.disable=1 console=tty0 crashkernel=auto"
+GRUB_DISABLE_RECOVERY="false"
+
+
+#!/bin/bash
+touch /var/lock/subsys/local
+if [[ -f /etc/rc.local.rebootonce ]] 
+then
+   bash /etc/rc.local.rebootonce
+fi
+
+
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+
+#!/bin/bash
+echo "Rebooting for Selinux only once"
+rm -f  /etc/rc.local.rebootonce
+grub2-mkconfig -o /boot/grub2/grub.cfg
+yum -y upgrade 
+rm -f /etc/ssh/ssh_host_*
+# https://www.ssh-audit.com/hardening_guides.html#rhel8
+ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
+ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+chgrp ssh_keys /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
+chmod g+r /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_rsa_key
+awk '$5 >= 3071' /etc/ssh/moduli 
+
+My IP address: \4{eth0}  \n \l
+
+
+My IP address: \4{eth0}  \n \l
+
+
+TYPE="Ethernet"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="none"
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="no"
+NAME="eth0"
+DEVICE="eth0"
+ONBOOT="yes"
+IPADDR="192.168.0.27"
+PREFIX="24"
+GATEWAY="192.168.0.1"
+DNS1="8.8.8.8"
+DNS2="8.8.4.4"
+
+
+
+
+
+
+TYPE="Ethernet"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="none"
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="no"
+NAME="eth0"
+DEVICE="eth0"
+ONBOOT="yes"
+IPADDR="192.168.122.249"
+PREFIX="24"
+GATEWAY="192.168.122.1"
+DNS1="8.8.8.8"
+DNS2="8.8.4.4"
