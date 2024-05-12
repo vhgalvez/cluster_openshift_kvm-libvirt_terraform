@@ -56,3 +56,6 @@ sudo ip addr add 192.168.0.24/24 dev br0
 # Activar el puente y las interfaces
 sudo ip link set br0 up
 sudo ip link set enp3s0f1 up
+
+# Verificar la configuración
+sudo ovs-vsctl show
