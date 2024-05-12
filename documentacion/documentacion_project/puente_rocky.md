@@ -38,7 +38,7 @@ Configurar la Interfaz Física
 La interfaz física que se usará como parte del puente debe configurarse en modo manual para evitar conflictos de configuración IP:
 
 ```bash
-sudo vi /etc/sysconfig/network-scripts/ifcfg-enp3s0
+sudo vim /etc/sysconfig/network-scripts/ifcfg-enp3s0
 ```
 
 Asegúrate de que el contenido sea similar a:
