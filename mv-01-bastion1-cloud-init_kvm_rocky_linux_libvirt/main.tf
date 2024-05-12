@@ -1,13 +1,5 @@
 # main.tf
-resource "null_resource" "ovs_setup" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
 
-  provisioner "local-exec" {
-    command = "echo Configurando Open vSwitch o alguna otra operación necesaria"
-  }
-}
 # Define the Virtual Network in libvirt using the created bridge
 resource "libvirt_network" "kube_network_01" {
   name   = "kube_network_01"
@@ -63,8 +55,6 @@ resource "libvirt_volume" "vm_disk" {
 
 # Define VM resources
 resource "libvirt_domain" "vm" {
-  depends_on = [null_resource.ovs_setup] # Ensure the bridge is set up before VM creation
-
   for_each = var.vm_rockylinux_definitions
 
   name   = each.key
