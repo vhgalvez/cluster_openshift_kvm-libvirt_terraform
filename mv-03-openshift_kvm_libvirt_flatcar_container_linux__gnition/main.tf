@@ -21,8 +21,8 @@ provider "libvirt" {
   uri = "qemu:///system"
 }
 
-resource "libvirt_network" "kube_network" {
-  name      = "kube_network"
+resource "libvirt_network" "kube_network_03" {
+  name      = "kube_network_03"
   mode      = "nat"
   addresses = ["10.17.3.0/24"]
 }
@@ -85,7 +85,7 @@ resource "libvirt_domain" "machine" {
   memory = each.value.memory
 
   network_interface {
-    network_id     = libvirt_network.kube_network.id
+    network_id     = libvirt_network.kube_network_03.id
     wait_for_lease = true
     addresses      = [each.value.ip] # Correctly refer to the IP
   }

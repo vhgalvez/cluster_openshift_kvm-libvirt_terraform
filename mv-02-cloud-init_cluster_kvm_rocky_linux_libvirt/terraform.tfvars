@@ -2,19 +2,6 @@
 rocky9_image = "/var/lib/libvirt/images/rocky_image/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
 
 vm_rockylinux_definitions = {
-  "bastion1" = {
-    cpus           = 2,
-    memory         = 2048,
-    ip             = "10.17.3.10",
-    cloudinit_disk = "rocky9_cloudinit_disk.iso",
-    cloudinit_pool = "default",
-    domain_memory  = "4096",
-    volume_name    = "bastion1_volume",
-    volume_format  = "qcow2",
-    volume_pool    = "default",
-    volume_size    = "32212254720"
-    hostname       = "bastion1"
-  },
   "freeipa1" = {
     cpus           = 2,
     memory         = 2048,

@@ -1,17 +1,18 @@
-
-resource "libvirt_network" "kube_network_02" {
-  name      = "kube_network_02"
-  mode      = "nat"
-  addresses = ["10.17.3.0/24"]
+# Define the Virtual Network
+resource "libvirt_network" "kube_network_01" {
+  name   = "kube_network_01"
+  mode   = "bridge"
+  bridge = "br0"
 }
 
-
+# Define the storage pool
 resource "libvirt_pool" "volumetmp" {
   name = var.cluster_name
   type = "dir"
   path = "/var/lib/libvirt/images/${var.cluster_name}"
 }
 
+# Define the base volume for VMs
 resource "libvirt_volume" "rocky9_image" {
   name   = "${var.cluster_name}-rocky9_image"
   source = var.rocky9_image
@@ -19,25 +20,28 @@ resource "libvirt_volume" "rocky9_image" {
   format = "qcow2"
 }
 
-data "template_file" "vm-configs" {
+# Configuration for each VM from a template file
+data "template_file" "vm_configs" {
   for_each = var.vm_rockylinux_definitions
 
   template = file("${path.module}/config/${each.key}-user-data.tpl")
   vars = {
     ssh_keys = jsonencode(var.ssh_keys),
-    hostname = each.key,
+    hostname = each.value.hostname,
     timezone = var.timezone
   }
 }
 
+# Create cloudinit disks for each VM
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
   name      = "${each.key}_cloudinit.iso"
   pool      = libvirt_pool.volumetmp.name
-  user_data = data.template_file.vm-configs[each.key].rendered
+  user_data = data.template_file.vm_configs[each.key].rendered
 }
 
+# Create disks for each VM
 resource "libvirt_volume" "vm_disk" {
   for_each = var.vm_rockylinux_definitions
 
@@ -47,6 +51,7 @@ resource "libvirt_volume" "vm_disk" {
   format         = "qcow2"
 }
 
+# Define VM resources
 resource "libvirt_domain" "vm" {
   for_each = var.vm_rockylinux_definitions
 
@@ -55,9 +60,9 @@ resource "libvirt_domain" "vm" {
   vcpu   = each.value.cpus
 
   network_interface {
-    network_id     = libvirt_network.kube_network_02.id
-    wait_for_lease = true
-    addresses      = [each.value.ip]
+    network_id = libvirt_network.kube_network_01.id
+    addresses  = [each.value.ip]
+    bridge     = "br0"
   }
 
   disk {
@@ -67,12 +72,10 @@ resource "libvirt_domain" "vm" {
   cloudinit = libvirt_cloudinit_disk.vm_cloudinit[each.key].id
 
   graphics {
-    type        = "vnc"
-    listen_type = "address"
+    type = "none" # Headless setup, typically no graphical interface needed
   }
 
   cpu {
     mode = "host-passthrough"
   }
 }
-

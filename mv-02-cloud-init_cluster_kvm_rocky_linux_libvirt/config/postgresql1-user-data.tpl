@@ -7,13 +7,12 @@ growpart:
   devices: ["/"]
   ignore_growroot_disabled: false
 
-resize_rootfs: noblock
+resize_rootfs: true
 
 chpasswd:
+  list: |
+    core:$6$hNh1nwO5OWWct4aZ$OoeAkQ4gKNBnGYK0ECi8saBMbUNeQRMICcOPYEu1bFuj9Axt4Rh6EnGba07xtIsGNt2wP9SsPlz543gfJww11/
   expire: false
-  list:
-    - name: core
-      password: $6$mR6G9JRERv6q8R4u$m7fvml93xhr1TdOfugVx3usP6uegNfnCA2b1iUZCUj1dqEOSIW3YqY8j/hXcvGKIUHHWBVHUsY.2jivQmqirS/
 
 ssh_pwauth: true
 disable_root: false
