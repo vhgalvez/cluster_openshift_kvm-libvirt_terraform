@@ -1,18 +1,36 @@
-# Define the Virtual Network
+# Initial setup for Open vSwitch and bridge configuration using local-exec
+resource "null_resource" "ovs_setup" {
+  # Executes commands to set up the bridge with Open vSwitch
+  provisioner "local-exec" {
+    command = <<EOF
+      sudo ovs-vsctl init
+      sudo ovs-vsctl add-br br0
+      sudo ip addr add 192.168.0.25/24 dev br0
+      sudo ip link set br0 up
+EOF
+  }
+
+  # Ensures this resource is executed before VMs are created
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
+
+# Define the Virtual Network in libvirt using the created bridge
 resource "libvirt_network" "kube_network_01" {
   name   = "kube_network_01"
   mode   = "bridge"
   bridge = "br0"
 }
 
-# Define the storage pool
+# Define the storage pool for VM disk images
 resource "libvirt_pool" "volumetmp" {
   name = var.cluster_name
   type = "dir"
   path = "/var/lib/libvirt/images/${var.cluster_name}"
 }
 
-# Define the base volume for VMs
+# Define the base volume for VMs using a Rocky Linux image
 resource "libvirt_volume" "rocky9_image" {
   name   = "${var.cluster_name}-rocky9_image"
   source = var.rocky9_image
@@ -20,7 +38,7 @@ resource "libvirt_volume" "rocky9_image" {
   format = "qcow2"
 }
 
-# Configuration for each VM from a template file
+# Configuration for each VM using a template file for user data
 data "template_file" "vm_configs" {
   for_each = var.vm_rockylinux_definitions
 
@@ -53,6 +71,8 @@ resource "libvirt_volume" "vm_disk" {
 
 # Define VM resources
 resource "libvirt_domain" "vm" {
+  depends_on = [null_resource.ovs_setup] # Ensure the bridge is set up before VM creation
+
   for_each = var.vm_rockylinux_definitions
 
   name   = each.key
@@ -72,10 +92,8 @@ resource "libvirt_domain" "vm" {
   cloudinit = libvirt_cloudinit_disk.vm_cloudinit[each.key].id
 
   graphics {
-    type        = "vnc"
-    listen_type = "address"
+    type = "none" # Headless setup
   }
-
 
   cpu {
     mode = "host-passthrough"

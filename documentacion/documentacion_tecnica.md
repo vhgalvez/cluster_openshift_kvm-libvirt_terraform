@@ -61,3 +61,30 @@ virsh vol-delete --pool default rocky9_cloudinit_disk.iso
 
 
 sudo chmod +x mv_03_show_terraform_configs.sh
+
+
+
+Listar los dominios existentes: Primero, asegúrate de que el dominio bastion1 está presente y verifica su estado.
+
+bash
+Copy code
+sudo virsh list --all
+Detener el dominio: Si el dominio está en ejecución, debes detenerlo antes de poder eliminarlo.
+
+bash
+Copy code
+sudo virsh destroy bastion1
+Eliminar el dominio: Una vez detenido, puedes eliminarlo completamente.
+
+bash
+Copy code
+sudo virsh undefine bastion1
+Este proceso libera el nombre bastion1, permitiéndote crear un nuevo dominio con ese nombre sin conflictos. Si también necesitas eliminar los recursos de almacenamiento asociados con ese dominio (como volúmenes de disco), puedes hacerlo con el siguiente comando:
+
+Eliminar los volúmenes de disco (opcional): Si también deseas eliminar los discos asociados a este dominio, asegúrate de conocer la ubicación y el nombre de los discos antes de eliminarlos.
+bash
+Copy code
+sudo virsh vol-delete --pool default nombre_del_disco
+
+
+
