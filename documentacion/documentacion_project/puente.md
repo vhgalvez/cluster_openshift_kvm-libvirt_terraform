@@ -29,3 +29,16 @@ sudo systemctl disable openvswitch
 sudo systemctl restart network
 sudo systemctl restart NetworkManager
 sudo systemctl restart NetworkManager
+
+
+
+resource "null_resource" "ovs_setup" {
+  # Asigna comandos para configurar el bridge con Open vSwitch
+  provisioner "local-exec" {
+    command = <<-EOF
+      sudo ovs-vsctl --may-exist add-br br0
+      sudo ip addr add 192.168.0.30/24 dev br0
+      sudo ip link set br0 up
+    EOF
+  }
+}
