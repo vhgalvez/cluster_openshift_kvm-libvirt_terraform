@@ -63,3 +63,11 @@ sudo ovs-vsctl show
 
 
 ovs-vsctl list-ports br0
+
+
+sudo virsh net-autostart kube_network_01
+
+sudo virsh net-info kube_network_01
+
+
+sudo yum install bridge-utils net-tools      # CentOS/RHEL
