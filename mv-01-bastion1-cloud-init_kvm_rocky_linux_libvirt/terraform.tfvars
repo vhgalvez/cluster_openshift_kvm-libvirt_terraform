@@ -1,9 +1,9 @@
-rocky9_image = "/var/lib/libvirt/images/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
+rocky9_image = "/var/lib/libvirt/images/rocky_image/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
 vm_rockylinux_definitions = {
   "bastion1" = {
     cpus           = 2,
     memory         = 2048,
-    ip             = "192.168.0.25",  # IP fija
+    ip             = "192.168.0.25", # IP fija
     cloudinit_disk = "rocky9_cloudinit_disk.iso",
     cloudinit_pool = "default",
     domain_memory  = "4096",
