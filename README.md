@@ -48,10 +48,10 @@
 
 ### Interfaces de Red Identificadas
 
-- **enp3s0f0**: 192.168.0.24
-- **enp3s0f1**: 192.168.0.25 (utilizada para Bridge en Bastion Node)
-- **enp4s0f0**: 192.168.0.20
-- **enp4s0f1**: 192.168.0.26
+- **enp3s0f0**: 192.168.0.15 
+- **enp3s0f1**: 192.168.0.16  (utilizada para Bridge en Bastion Node)
+- **enp4s0f0**: 192.168.0.20 
+- **enp4s0f1**: 192.168.0.18 
 - **lo (Loopback)**: 127.0.0.1
 
 ### Automatización y Orquestación
@@ -84,7 +84,6 @@
 - **Fail2Ban**: Protección contra accesos no autorizados y ataques.
 - **DNS y FreeIPA**: Gestión centralizada de autenticación y políticas de seguridad y Servidor de DNS
 
-
 ### Almacenamiento persistente
 
 **Rook y Ceph** Orquestar Ceph en Kubernetes para almacenamiento persistente.
@@ -107,23 +106,6 @@
   - **/dev/sda2**: 1014M (718M usado)
   - **/dev/mapper/rl-home**: 3.0T (25G usado)
   
-### Configuración de VLANs y Redes Virtuales
-
-- **VLAN 101**: Bootstrap Node 1
-- **VLAN 102**: Master Nodes 3
-- **VLAN 103**: Worker Nodes 3
-- **VLAN 104**: Bastion Node 1
-- **VLAN 105**: PostgreSQL Node 1
-- **VLAN 106**: Load Balancer Traefik Node 1  
-- **VLAN 107**: FreeIPA Node 1
-
-
-## Red y Conectividad
-
-- **Switch**: TP-Link LS1008G - 8 puertos Gigabit no administrados
-- **Router WiFi**: Conexión fibra óptica, 600 Mbps de subida/bajada, IP pública
-- **Red**: Configurada con Open vSwitch para manejo avanzado y políticas de red
-- **VPN**: WireGuard para acceso seguro ssh administrado por Bastion Node
 
 ## Máquinas Virtuales y Roles
 
@@ -134,43 +116,140 @@
   - **Worker Nodes**: 3 x (2 CPUs, 2048 MB), ejecutan aplicaciones
   - **Bastion Node**: 1 CPU, 1024 MB, seguridad y acceso
   - **Load Balancer**: 1 CPU, 1024 MB, con Traefik
+  
+## Red y Conectividad
 
-### VLAN 101: Bootstrapping
+- **Switch**: TP-Link LS1008G - 8 puertos Gigabit no administrados
+- **Router WiFi**: Conexión fibra óptica, 600 Mbps de subida/bajada, IP pública
+- **Red**: Configurada con Open vSwitch para manejo avanzado y políticas de red
+- **VPN**: WireGuard para acceso seguro ssh administrado por Bastion Node
+## Redes Virtuales y Configuración
 
-| Máquina    | CPU (cores) | Memoria (MB) | IP         | Dominio                        | Sistema Operativo       |
-| ---------- | ----------- | ------------ | ---------- | ------------------------------ | ----------------------- |
-| Bootstrap1 | 1           | 1024         | 10.17.3.10 | bootstrap.cefaslocalserver.com | Flatcar Container Linux |
+## Tabla de Configuración de Redes - kube_network_01 - Bridge Network
 
-### VLAN 102: Masters
+| Red NAT        | Nodos    | Dirección IP | Rol del Nodo                           | Interfaz de Red |
+|----------------|----------|--------------|----------------------------------------|-----------------|
+| kube_network_01 | bastion1 |              | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
 
-| Máquina | CPU (cores) | Memoria (MB) | IP         | Dominio                      | Sistema Operativo       |
-| ------- | ----------- | ------------ | ---------- | ---------------------------- | ----------------------- |
-| Master1 | 2           | 2048         | 10.17.3.11 | master1.cefaslocalserver.com | Flatcar Container Linux |
-| Master2 | 2           | 2048         | 10.17.3.12 | master2.cefaslocalserver.com | Flatcar Container Linux |
-| Master3 | 2           | 2048         | 10.17.3.13 | master3.cefaslocalserver.com | Flatcar Container Linux |
+## Tabla de Configuración de Redes - kube_network_02 - NAT Network
 
-### VLAN 103: Workers
+| Red NAT        | Nodos          | Dirección IP | Rol del Nodo                           | Interfaz de Red   |
+|----------------|----------------|--------------|----------------------------------------|-------------------|
+| kube_network_02 | freeipa1       | 10.17.3.11   | Servidor de DNS y gestión de identidades | (Virtual - NAT) |
+| kube_network_02 | load_balancer1 | 10.17.3.12   | Balanceo de carga para el clúster         | (Virtual - NAT) |
+| kube_network_02 | postgresql1    | 10.17.3.13   | Gestión de bases de datos                 | (Virtual - NAT) |
 
-| Máquina | CPU (cores) | Memoria (MB) | IP         | Dominio                      | Sistema Operativo       |
-| ------- | ----------- | ------------ | ---------- | ---------------------------- | ----------------------- |
-| Worker1 | 2           | 2048         | 10.17.3.14 | worker1.cefaslocalserver.com | Flatcar Container Linux |
-| Worker2 | 2           | 2048         | 10.17.3.15 | worker2.cefaslocalserver.com | Flatcar Container Linux |
-| Worker3 | 2           | 2048         | 10.17.3.16 | worker3.cefaslocalserver.com | Flatcar Container Linux |
+## Tabla de Configuración de Redes - kube_network_03 - NAT Network
 
-### VLAN 104: Management and Utility
+| Red NAT        | Nodos        | Dirección IP | Rol del Nodo          | Interfaz de Red   |
+|----------------|--------------|--------------|-----------------------|-------------------|
+| kube_network_03 | bootstrap1   | 10.17.4.20   | Inicialización del clúster | (Virtual - NAT) |
+| kube_network_03 | master1      | 10.17.4.21   | Gestión del clúster   | (Virtual - NAT)   |
+| kube_network_03 | master2      | 10.17.4.22   | Gestión del clúster   | (Virtual - NAT)   |
+| kube_network_03 | master3      | 10.17.4.23   | Gestión del clúster   | (Virtual - NAT)   |
+| kube_network_03 | worker1      | 10.17.4.24   | Ejecución de aplicaciones | (Virtual - NAT) |
+| kube_network_03 | worker2      | 10.17.4.25   | Ejecución de aplicaciones | (Virtual - NAT) |
+| kube_network_03 | worker3      | 10.17.4.26   | Ejecución de aplicaciones | (Virtual - NAT) |
 
-| Máquina  | CPU (cores) | Memoria (MB) | IP         | Dominio                      | Modo de Red | Sistema Operativo       |
-| -------- | ----------- | ------------ | ---------- | ---------------------------- | ----------- | ----------------------- |
-| Bastion1 | 1           | 1024         | 10.17.3.21 | bastion.cefaslocalserver.com | Bridge      | Rocky Linux 9.3 Minimal |
+### Detalles de las Máquinas Virtuales por Red
 
-### VLAN 105: Storage and Databases
+#### kube_network_01 - Bridge Network
 
-| Máquina     | CPU (cores) | Memoria (MB) | IP         | Dominio                         | Sistema Operativo       |
-| ----------- | ----------- | ------------ | ---------- | ------------------------------- | ----------------------- |
-| PostgreSQL1 | 1           | 1024         | 10.17.3.20 | postgresql.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
+| Máquina  | CPU (cores) | Memoria (MB) | IP | Dominio                          | Sistema Operativo       |
+|----------|-------------|--------------|----|----------------------------------|-------------------------|
+| Bastion1 | 1           | 1024         |    | bastion.cefaslocalserver.com     | Rocky Linux 9.3 Minimal |
 
-### VLAN 106: Load Balancing
+#### kube_network_02 - NAT Network
 
-| Máquina        | CPU (cores) | Memoria (MB) | IP         | Dominio                           | Sistema Operativo       |
-| -------------- | ----------- | ------------ | ---------- | --------------------------------- | ----------------------- |
-| Load Balancer1 | 1           | 1024         | 10.17.3.18 | loadbalancer.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
+| Máquina      | CPU (cores) | Memoria (MB) | IP         | Dominio                            | Sistema Operativo       |
+|--------------|-------------|--------------|------------|------------------------------------|-------------------------|
+| FreeIPA1     | 2           | 2048         | 10.17.3.11 | freeipa1.cefaslocalserver.com      | Rocky Linux 9.3 Minimal |
+| LoadBalancer1| 2           | 2048         | 10.17.3.12 | loadbalancer1.cefaslocalserver.com | Rocky Linux 9.3 Minimal |
+| PostgreSQL1  | 2           | 2048         | 10.17.3.13 | postgresql1.cefaslocalserver.com   | Rocky Linux 9.3 Minimal |
+
+#### kube_network_03 - NAT Network
+
+| Máquina   | CPU (cores) | Memoria (MB) | IP         | Dominio                          | Sistema Operativo       |
+|-----------|-------------|--------------|------------|----------------------------------|-------------------------|
+| Bootstrap1| 2           | 2048         | 10.17.4.20 | bootstrap1.cefaslocalserver.com  | Flatcar Container Linux |
+| Master1   | 2           | 2048         | 10.17.4.21 | master1.cefaslocalserver.com     | Flatcar Container Linux |
+| Master2   | 2           | 2048         | 10.17.4.22 | master2.cefaslocalserver.com     | Flatcar Container Linux |
+| Master3   | 2           | 2048         | 10.17.4.23 | master3.cefaslocalserver.com     | Flatcar Container Linux |
+| Worker1   | 2           | 2048         | 10.17.4.24 | worker1.cefaslocalserver.com     | Flatcar Container Linux |
+| Worker2   | 2           | 2048         | 10.17.4.25 | worker2.cefaslocalserver.com     | Flatcar Container Linux |
+| Worker3   | 2           | 2048         | 10.17.4.26 | worker3.cefaslocalserver.com     | Flatcar Container Linux |
+
+
+## Tabla de Configuración de Redes
+
+### Tabla de Configuración de Redes - kube_network_01
+
+| Red NAT          | Nodos      | Dirección IP | Rol del Nodo                               | Interfaz de Red |
+|------------------|------------|--------------|--------------------------------------------|-----------------|
+| kube_network_01  | `bastion1` |              | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
+
+### Tabla de Configuración de Redes - kube_network_02
+
+| Red NAT          | Nodos               | Dirección IP | Rol del Nodo                       | Interfaz de Red  |
+|------------------|---------------------|--------------|------------------------------------|------------------|
+| kube_network_02  | `freeipa1`          | 10.17.3.11   | Servidor de DNS y gestión de identidades | (Virtual - NAT)  |
+| kube_network_02  | `load_balancer1`    | 10.17.3.12   | Balanceo de carga para el clúster  | (Virtual - NAT)  |
+| kube_network_02  | `postgresql1`       | 10.17.3.13   | Gestión de bases de datos          | (Virtual - NAT)  |
+
+### Tabla de Configuración de Redes - kube_network_03
+
+| Red NAT          | Nodos               | Dirección IP | Rol del Nodo               | Interfaz de Red  |
+|------------------|---------------------|--------------|----------------------------|------------------|
+| kube_network_03  | `bootstrap1`        | 10.17.4.20   | Inicialización del clúster | (Virtual - NAT)  |
+| kube_network_03  | `master1`           | 10.17.4.21   | Gestión del clúster        | (Virtual - NAT)  |
+| kube_network_03  | `master2`           | 10.17.4.22   | Gestión del clúster        | (Virtual - NAT)  |
+| kube_network_03  | `master3`           | 10.17.4.23   | Gestión del clúster        | (Virtual - NAT)  |
+| kube_network_03  | `worker1`           | 10.17.4.24   | Ejecución de aplicaciones  | (Virtual - NAT)  |
+| kube_network_03  | `worker2`           | 10.17.4.25   | Ejecución de aplicaciones  | (Virtual - NAT)  |
+| kube_network_03  | `worker3`           | 10.17.4.26   | Ejecución de aplicaciones  | (Virtual - NAT)  |
+
+### Recursos Terraform para la configuración de redes
+
+
+```hcl
+# Red kube_network_01 - Bridge Network
+resource "libvirt_network" "kube_network_01" {
+  name   = "kube_network_01"
+  mode   = "bridge"
+  bridge = "br0"
+}
+
+# Red kube_network_02 - NAT Network
+resource "libvirt_network" "kube_network_02" {
+  name      = "kube_network_02"
+  mode      = "nat"
+  addresses = ["10.17.3.0/24"]
+}
+
+# Red kube_network_03 - NAT Network
+resource "libvirt_network" "kube_network_03" {
+  name      = "kube_network_03"
+  mode      = "nat"
+  addresses = ["10.17.4.0/24"]
+}
+```
+
+## Interfaces Físicas de Red y Funcionalidad
+
+| Interface | IP Address      | Netmask         | Broadcast        | Description                              | Additional Info                   |
+|-----------|-----------------|-----------------|------------------|------------------------------------------|-----------------------------------|
+| enp3s0f0  | 192.168.0.15    | 255.255.255.0   | 192.168.0.255    | Interfaz general del servidor            | -                                 |
+| enp3s0f1  | 192.168.0.16    | 255.255.255.0   | 192.168.0.255    | Utilizada para Bridge en el nodo bastion1| -                                 |
+| enp4s0f0  | 192.168.0.20    | 255.255.255.0   | 192.168.0.255    | Otra interfaz general del servidor       | -                                 |
+| enp4s0f1  | 192.168.0.18    | 255.255.255.0   | 192.168.0.255    | Reserva o conexión redundante            | -                                 |
+| k8s       | 192.168.120.1   | 255.255.255.0   | 192.168.120.255  | Interfaz para Kubernetes                 | Solo configuración, no tráfico    |
+| lo        | 127.0.0.1       | 255.0.0.0       | -                | Loopback, interfaz de red virtual        | Tráfico local solo                |
+| virbr0    | 192.168.122.1   | 255.255.255.0   | 192.168.122.255  | Interfaz de red virtual por defecto      | Usado típicamente por KVM         |
+
+
+## Detalles adicionales
+
+- Los nodos dentro de cada red NAT pueden comunicarse entre sí a través de sus direcciones IP asignadas. Sin embargo, la interacción entre nodos de diferentes redes NAT requiere configuración adicional en el enrutamiento o el uso de un nodo bastión configurado para permitir y gestionar dicho tráfico.
+- Consideraciones de seguridad, como firewalls y VLANs, deben ser tomadas en cuenta para proteger el tráfico que cruza diferentes segmentos de red y para garantizar la integridad y seguridad del clúster.
+- La infraestructura de red debe apoyar estas configuraciones, incluyendo soporte para Open vSwitch y capacidades avanzadas de NAT y bridging.
+- Este diseño propuesto permite una comprensión clara de cómo se pueden estructurar y gestionar eficazmente las redes dentro de un entorno de clúster, asegurando tanto la funcionalidad como la seguridad.

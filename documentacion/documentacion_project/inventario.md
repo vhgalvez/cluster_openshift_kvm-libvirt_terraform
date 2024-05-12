@@ -48,10 +48,10 @@
 
 ### Interfaces de Red Identificadas
 
-- **enp3s0f0**: 192.168.0.24
-- **enp3s0f1**: 192.168.0.25 (utilizada para Bridge en Bastion Node)
-- **enp4s0f0**: 192.168.0.20
-- **enp4s0f1**: 192.168.0.26
+- **enp3s0f0**: 192.168.0.15 
+- **enp3s0f1**: 192.168.0.16  (utilizada para Bridge en Bastion Node)
+- **enp4s0f0**: 192.168.0.20 
+- **enp4s0f1**: 192.168.0.18 
 - **lo (Loopback)**: 127.0.0.1
 
 ### Automatización y Orquestación
@@ -84,7 +84,6 @@
 - **Fail2Ban**: Protección contra accesos no autorizados y ataques.
 - **DNS y FreeIPA**: Gestión centralizada de autenticación y políticas de seguridad y Servidor de DNS
 
-
 ### Almacenamiento persistente
 
 **Rook y Ceph** Orquestar Ceph en Kubernetes para almacenamiento persistente.
@@ -107,16 +106,6 @@
   - **/dev/sda2**: 1014M (718M usado)
   - **/dev/mapper/rl-home**: 3.0T (25G usado)
   
-### Configuración de Redes Virtuales
-
-
-
-## Red y Conectividad
-
-- **Switch**: TP-Link LS1008G - 8 puertos Gigabit no administrados
-- **Router WiFi**: Conexión fibra óptica, 600 Mbps de subida/bajada, IP pública
-- **Red**: Configurada con Open vSwitch para manejo avanzado y políticas de red
-- **VPN**: WireGuard para acceso seguro ssh administrado por Bastion Node
 
 ## Máquinas Virtuales y Roles
 
@@ -127,7 +116,13 @@
   - **Worker Nodes**: 3 x (2 CPUs, 2048 MB), ejecutan aplicaciones
   - **Bastion Node**: 1 CPU, 1024 MB, seguridad y acceso
   - **Load Balancer**: 1 CPU, 1024 MB, con Traefik
+  
+## Red y Conectividad
 
+- **Switch**: TP-Link LS1008G - 8 puertos Gigabit no administrados
+- **Router WiFi**: Conexión fibra óptica, 600 Mbps de subida/bajada, IP pública
+- **Red**: Configurada con Open vSwitch para manejo avanzado y políticas de red
+- **VPN**: WireGuard para acceso seguro ssh administrado por Bastion Node
 ## Redes Virtuales y Configuración
 
 ## Tabla de Configuración de Redes - kube_network_01 - Bridge Network
