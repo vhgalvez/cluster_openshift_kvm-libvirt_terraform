@@ -1,33 +1,3 @@
-resource "null_resource" "ovs_setup" {
-  # Asegura la ejecución sólo en creación y permite eliminar el puente en destrucción
-  provisioner "local-exec" {
-    when    = "create"
-    command = <<-EOF
-      # Inicializa Open vSwitch si no está inicializado
-      sudo ovs-vsctl --may-exist init
-      # Agrega el puente solo si no existe para evitar interrupciones
-      sudo ovs-vsctl --may-exist add-br br0
-      # Configura la dirección IP solo si el puente no tiene una configurada
-      if ! ip addr show br0 | grep -q "192.168.0.25"; then
-        sudo ip addr add 192.168.0.25/24 dev br0
-        sudo ip link set dev br0 up
-      fi
-    EOF
-  }
-
-  provisioner "local-exec" {
-    when    = "destroy"
-    command = <<-EOF
-      sudo ovs-vsctl --if-exists del-br br0
-    EOF
-  }
-
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-}
-
-
 # Define the Virtual Network in libvirt using the created bridge
 resource "libvirt_network" "kube_network_01" {
   name   = "kube_network_01"
