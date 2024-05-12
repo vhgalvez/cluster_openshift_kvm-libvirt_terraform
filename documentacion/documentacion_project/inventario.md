@@ -194,9 +194,6 @@
 
 ## Interfaces Físicas de Red y Funcionalidad
 
-
-## Tabla de Redes
-
 | Interface | IP Address      | Netmask         | Broadcast        | Description                              | Additional Info                   |
 |-----------|-----------------|-----------------|------------------|------------------------------------------|-----------------------------------|
 | enp3s0f0  | 192.168.0.15    | 255.255.255.0   | 192.168.0.255    | Interfaz general del servidor            | -                                 |
