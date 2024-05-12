@@ -88,3 +88,7 @@ sudo virsh vol-delete --pool default nombre_del_disco
 
 
 
+sudo virsh list --all
+sudo systemctl enable openvswitch.service
+sudo systemctl start openvswitch.service
+sudo systemctl status openvswitch.service
