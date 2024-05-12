@@ -202,6 +202,20 @@
 | `enp4s0f1` | 192.168.0.26  | Reserva o conexión redundante                    |
 | `lo`       | 127.0.0.1     | Loopback, interfaz de red virtual para el localhost |
 
+
+## Tabla de Redes
+
+| Interface | IP Address      | Netmask         | Broadcast        | Description                              | Additional Info                   |
+|-----------|-----------------|-----------------|------------------|------------------------------------------|-----------------------------------|
+| enp3s0f0  | 192.168.0.15    | 255.255.255.0   | 192.168.0.255    | Interfaz general del servidor            | -                                 |
+| enp3s0f1  | 192.168.0.16    | 255.255.255.0   | 192.168.0.255    | Utilizada para Bridge en el nodo bastion1| -                                 |
+| enp4s0f0  | 192.168.0.20    | 255.255.255.0   | 192.168.0.255    | Otra interfaz general del servidor       | -                                 |
+| enp4s0f1  | 192.168.0.18    | 255.255.255.0   | 192.168.0.255    | Reserva o conexión redundante            | -                                 |
+| k8s       | 192.168.120.1   | 255.255.255.0   | 192.168.120.255  | Interfaz para Kubernetes                 | Solo configuración, no tráfico    |
+| lo        | 127.0.0.1       | 255.0.0.0       | -                | Loopback, interfaz de red virtual        | Tráfico local solo                |
+| virbr0    | 192.168.122.1   | 255.255.255.0   | 192.168.122.255  | Interfaz de red virtual por defecto      | Usado típicamente por KVM         |
+
+
 ## Detalles adicionales
 
 - Los nodos dentro de cada red NAT pueden comunicarse entre sí a través de sus direcciones IP asignadas. Sin embargo, la interacción entre nodos de diferentes redes NAT requiere configuración adicional en el enrutamiento o el uso de un nodo bastión configurado para permitir y gestionar dicho tráfico.
