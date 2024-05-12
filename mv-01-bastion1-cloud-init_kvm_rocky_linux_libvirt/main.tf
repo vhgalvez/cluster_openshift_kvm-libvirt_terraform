@@ -1,12 +1,24 @@
 resource "null_resource" "ovs_setup" {
+  # Asegura la ejecución sólo en creación y permite eliminar el puente en destrucción
   provisioner "local-exec" {
+    when    = "create"
     command = <<-EOF
-      if ! sudo ovs-vsctl br-exists br0; then
-        sudo ovs-vsctl init
-        sudo ovs-vsctl add-br br0
+      # Inicializa Open vSwitch si no está inicializado
+      sudo ovs-vsctl --may-exist init
+      # Agrega el puente solo si no existe para evitar interrupciones
+      sudo ovs-vsctl --may-exist add-br br0
+      # Configura la dirección IP solo si el puente no tiene una configurada
+      if ! ip addr show br0 | grep -q "192.168.0.25"; then
         sudo ip addr add 192.168.0.25/24 dev br0
-        sudo ip link set br0 up
+        sudo ip link set dev br0 up
       fi
+    EOF
+  }
+
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = <<-EOF
+      sudo ovs-vsctl --if-exists del-br br0
     EOF
   }
 
