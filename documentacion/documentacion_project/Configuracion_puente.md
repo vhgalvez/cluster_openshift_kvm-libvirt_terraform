@@ -234,3 +234,19 @@ write_files:
 
 
   /etc/sysconfig/network-scripts/
+
+
+  [victory@server ~]$ brctl show
+bridge name     bridge id               STP enabled     interfaces
+br0             8000.2c768aacdebc       no              enp3s0f0
+                                                        vnet4
+k8s             8000.52540041a05d       yes
+virbr0          8000.525400bef6d5       yes
+[victory@server ~]$ sudo brctl show
+[sudo] password for victory:
+bridge name     bridge id               STP enabled     interfaces
+br0             8000.2c768aacdebc       no              enp3s0f0
+                                                        vnet4
+k8s             8000.52540041a05d       yes
+virbr0          8000.525400bef6d5       yes
+[victory@server ~]$
