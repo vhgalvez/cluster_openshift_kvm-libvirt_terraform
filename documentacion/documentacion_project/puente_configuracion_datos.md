@@ -101,6 +101,27 @@ base64
 ```
 
 
+```bash
+cat /etc/NetworkManager/NetworkManager.conf
+```
+
+```plaintext
+[main]
+plugins=keyfile,ifcfg-rh
+
+```
+    
+    [logging]
+level=DEBUG
+domains=ALL
+
+    ```bash
+    sudo systemctl restart NetworkManager
+    ```
+
+
+
+
 sudo nmcli connection up br0
 sudo brctl addif br0 enp3s0f0
 sudo systemctl restart NetworkManager
@@ -178,3 +199,12 @@ sudo virsh net-autostart default
 
 sudo virsh list --all
 
+
+sudo nmcli con mod br0 ipv4.addresses "192.168.0.35/24" ipv4.gateway "192.168.0.1" ipv4.dns "8.8.8.8,8.8.4.4"
+sudo nmcli con up br0
+
+
+[victory@server mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt]$ sudo nmcli con mod br0 ipv4.addresses "192.168.0.35/24" ipv4.gateway "192.168.0.1" ipv4.dns "8.8.8.8,8.8.4.4"
+[victory@server mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt]$ sudo nmcli con up br0
+La conexión se ha activado correctamente (master waiting for slaves) (ruta activa D-Bus: /org/freedesktop/NetworkManager/ActiveConnection/10)
+[victory@server mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt]$
