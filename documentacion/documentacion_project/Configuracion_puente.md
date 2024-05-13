@@ -197,3 +197,17 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 10  bytes 1570 (1.5 KiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+
+Verificar el Módulo del Kernel: Asegúrate de que todos los módulos necesarios para el funcionamiento del networking de puentes estén cargados. Ya has cargado br_netfilter, pero también verifica si necesitas otros relacionados con la virtualización como vhost_net:
+
+bash
+Copiar código
+sudo modprobe vhost_net
+Permisos y Políticas de Seguridad: Verifica las políticas de SELinux o AppArmor para asegurarte de que no están bloqueando las operaciones de Libvirt. Puedes temporalmente poner SELinux en modo permisivo para descartar esto como causa:
+
+bash
+Copiar código
+sudo setenforce 0
+Revisa los logs de SELinux si encuentras denegaciones relacionadas con libvirt o qemu.
