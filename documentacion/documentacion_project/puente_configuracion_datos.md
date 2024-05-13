@@ -66,6 +66,7 @@ unmanaged-devices=none
 
 base64
 configuracion red cloud init maquina virtual en el archivo de configuracion de cloud init
+
  cat /etc/sysconfig/network-scripts/ifcfg-eth0
 
  \config\bastion1-user-data.tpl
@@ -211,17 +212,12 @@ La conexión se ha activado correctamente (master waiting for slaves) (ruta acti
 
 
 [victory@server mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt]$ tree
-.
+
 ├── config
 │   ├── bastion1-user-data.tpl
 │   └── cloud-init.log
 ├── main.tf
-├── meta-data
 ├── outputs.tf
 ├── provider.tf
-├── README.md
-├── red_configuracion.sh
-├── terraform.tfstate
-├── terraform.tfstate.backup
 ├── terraform.tfvars
 └── vars.tf
