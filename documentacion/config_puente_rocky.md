@@ -177,3 +177,32 @@ br0             8000.2c768aacdebc       yes             enp3s0f0
 device enp3s0f0 is already a member of a bridge; can't add it to bridge br0.
 [victory@server ~]$ sudo systemctl restart NetworkManager
 [victory@server ~]$ sudo systemctl restart libvirtd
+
+
+
+
+[victory@server ~]$ sudo nmcli con mod br0 ipv4.addresses "192.168.0.35/24"
+[sudo] password for victory:
+[victory@server ~]$ sudo nmcli con mod br0 ipv4.gateway "192.168.0.1"
+[victory@server ~]$ sudo nmcli con mod br0 ipv4.dns "8.8.8.8,8.8.4.4"
+[victory@server ~]$ sudo nmcli con mod br0 ipv4.method manual
+[victory@server ~]$ sudo systemctl restart NetworkManager
+[victory@server ~]$ sudo systemctl restart NetworkManager
+[victory@server ~]$ ip addr show br0
+10: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:bc brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.16/24 brd 192.168.0.255 scope global dynamic noprefixroute br0
+       valid_lft 85410sec preferred_lft 85410sec
+    inet 192.168.0.35/24 brd 192.168.0.255 scope global secondary noprefixroute br0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::7666:f262:9084:9f5f/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+[victory@server ~]$ ip addr show br0
+10: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:bc brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.16/24 brd 192.168.0.255 scope global dynamic noprefixroute br0
+       valid_lft 85309sec preferred_lft 85309sec
+    inet 192.168.0.35/24 brd 192.168.0.255 scope global secondary noprefixroute br0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::7666:f262:9084:9f5f/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
