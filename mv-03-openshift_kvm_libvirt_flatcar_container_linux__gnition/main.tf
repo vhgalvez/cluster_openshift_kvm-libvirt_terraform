@@ -24,7 +24,7 @@ provider "libvirt" {
 resource "libvirt_network" "kube_network_03" {
   name      = "kube_network_03"
   mode      = "nat"
-  addresses = ["10.17.3.0/24"]
+  addresses = ["10.17.4.0/24"]
 }
 
 resource "libvirt_pool" "volumetmp" {
