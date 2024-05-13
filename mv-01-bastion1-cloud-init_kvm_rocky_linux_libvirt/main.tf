@@ -3,9 +3,11 @@
 # Define the Virtual Network in libvirt using the created bridge
 # ip fija 192.168.0.27
 resource "libvirt_network" "kube_network_01" {
-  name   = "kube_network_01"
-  mode   = "bridge"
-  bridge = "br0"
+  name      = "kube_network_01"
+  mode      = "bridge"
+  bridge    = "br0"
+  autostart = "true"
+
 }
 
 # Define the storage pool for VM disk images
