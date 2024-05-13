@@ -7,7 +7,6 @@ resource "libvirt_network" "kube_network_01" {
   mode      = "bridge"
   bridge    = "br0"
   autostart = "true"
-
 }
 
 # Define the storage pool for VM disk images

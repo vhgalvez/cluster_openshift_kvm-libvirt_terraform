@@ -250,3 +250,28 @@ br0             8000.2c768aacdebc       no              enp3s0f0
 k8s             8000.52540041a05d       yes
 virbr0          8000.525400bef6d5       yes
 [victory@server ~]$
+
+
+
+resource "libvirt_network" "kube_network_01" {
+  name   = "kube_network_01"
+  mode   = "bridge"
+  bridge = "br0" 
+  addresses = ["192.168.0.27/24"]
+
+}
+
+
+network_interface {
+    network_id     = libvirt_network.kube_network_01.id
+    wait_for_lease = true
+    addresses      = [each.value.ip]
+  }
+
+
+
+resource "libvirt_network" "kube_network_02" {
+  name      = "kube_network_02"
+  mode      = "nat"
+  addresses = ["10.17.3.0/24"]
+}
