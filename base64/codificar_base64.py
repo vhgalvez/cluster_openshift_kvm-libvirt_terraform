@@ -1,7 +1,7 @@
 import base64
 
 # Leer texto desde un archivo para codificarlo
-with open('base64/archivo_para_codificar.txt', 'r') as file:
+with open('base64/input_generar_codificacion_base64.txt', 'r') as file:
     texto_a_codificar = file.read().strip()
 
 # Codificar el texto a base64

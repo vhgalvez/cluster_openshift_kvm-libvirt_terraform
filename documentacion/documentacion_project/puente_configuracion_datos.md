@@ -188,7 +188,7 @@ resource "libvirt_network" "kube_network_01" {
 [victory@server ~]$
 
 
-
+sudo nmcli con show br0
 
 
 sudo virsh net-list --all
@@ -208,3 +208,20 @@ sudo nmcli con up br0
 [victory@server mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt]$ sudo nmcli con up br0
 La conexión se ha activado correctamente (master waiting for slaves) (ruta activa D-Bus: /org/freedesktop/NetworkManager/ActiveConnection/10)
 [victory@server mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt]$
+
+
+[victory@server mv-01-bastion1-cloud-init_kvm_rocky_linux_libvirt]$ tree
+.
+├── config
+│   ├── bastion1-user-data.tpl
+│   └── cloud-init.log
+├── main.tf
+├── meta-data
+├── outputs.tf
+├── provider.tf
+├── README.md
+├── red_configuracion.sh
+├── terraform.tfstate
+├── terraform.tfstate.backup
+├── terraform.tfvars
+└── vars.tf
