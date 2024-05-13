@@ -17,7 +17,6 @@ manage_etc_hosts: true
 ssh_pwauth: true
 
 
-
 # Configuración de usuario y autenticación
 chpasswd:
   list: |
