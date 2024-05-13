@@ -71,3 +71,5 @@ sudo virsh net-info kube_network_01
 
 
 sudo yum install bridge-utils net-tools      # CentOS/RHEL
+
+

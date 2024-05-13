@@ -112,3 +112,8 @@ sudo journalctl -u libvirtd
 Revisa también la configuración de SELinux, que puede necesitar ajustes si está bloqueando algunas operaciones de red.
 
 Con estos pasos, serás capaz de configurar un puente de red en Rocky Linux 9, optimizando así el rendimiento y la gestión de tus máquinas virtuales en un entorno KVM utilizando libvirt.
+
+
+
+# ver interfaces de red físicas
+lspci | grep Ethernet

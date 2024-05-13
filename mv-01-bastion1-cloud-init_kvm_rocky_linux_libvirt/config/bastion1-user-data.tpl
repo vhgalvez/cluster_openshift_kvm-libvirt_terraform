@@ -42,7 +42,7 @@ write_files:
     permissions: "0644"
 
   - encoding: b64
-    content: VFlQRT0iRXRoZXJuZXQiClBST1hZX01FVEhPRD0ibm9uZSIKQlJPV1NFUl9PTkxZPSJubyIKQk9PVFBST1RPPSJub25lIgpERUZST1VURT0ieWVzIgpJUFY0X0ZBSUxVUkVfRkFUQUw9Im5vIgpJUFY2SU5JVD0ibm8iCk5BTUU9ImV0aDAiCkRFVklDRT0iZXRoMCIKT05CT09UPSJ5ZXMiCklQQUREUj0iMTkyLjE2OC4wLjI3IgpQUkVGSVg9IjI0IgpHQVRFV0FZPSIxOTIuMTY4LjAuMSIKRE5TMT0iOC44LjguOCIKRE5TMj0iOC44LjQuNCI=
+    content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCk5NX0NPTlRST0xMRUQ9eWVzCkJSSURHRT1icjA=
     owner: root:root
     path: /etc/sysconfig/network-scripts/ifcfg-eth0
     permissions: "0644"
@@ -85,6 +85,6 @@ write_files:
 
 # Comandos a ejecutar después de la primera carga
 runcmd:
-  - [/etc/rc.local.rebootonce]
   - echo "Instance setup completed" >> /var/log/cloud-init-output.log
-
+  - [/etc/rc.local.rebootonce]
+  - ['systemctl', 'restart', 'NetworkManager.service']
