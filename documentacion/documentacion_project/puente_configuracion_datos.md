@@ -210,3 +210,11 @@ journalctl -u libvirtd
 
 ip addr show eth0
 ping -c 4 google.com
+
+
+
+sudo nmcli con mod br0 ipv4.addresses "192.168.0.35/24"
+sudo nmcli con mod br0 ipv4.gateway "192.168.0.1"
+sudo nmcli con mod br0 ipv4.dns "8.8.8.8,8.8.4.4"
+sudo nmcli con mod br0 ipv4.method manual
+sudo systemctl restart NetworkManager
