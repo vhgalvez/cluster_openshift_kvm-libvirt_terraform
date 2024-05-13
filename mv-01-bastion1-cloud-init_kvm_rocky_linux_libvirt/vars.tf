@@ -28,6 +28,15 @@ variable "timezone" {
   default     = "Europe/London"
 }
 
+variable "core_password" {
+  description = "Password for the core user"
+  type        = string
+}
+
+variable "root_password" {
+  description = "Password for the root user"
+  type        = string
+}
 variable "vm_rockylinux_definitions" {
   description = "Definitions of virtual machines including CPU and memory configuration"
   type = map(object({
