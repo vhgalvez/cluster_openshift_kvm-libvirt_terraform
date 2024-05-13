@@ -211,3 +211,26 @@ bash
 Copiar código
 sudo setenforce 0
 Revisa los logs de SELinux si encuentras denegaciones relacionadas con libvirt o qemu.
+
+
+write_files:
+  - path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    owner: root:root
+    permissions: '0644'
+    content: |
+      TYPE=Ethernet
+      DEVICE=eth0
+      ONBOOT=yes
+      BOOTPROTO=none
+      NM_CONTROLLED=yes
+      BRIDGE=br0
+      IPADDR=192.168.0.27
+      PREFIX=24
+      GATEWAY=192.168.0.1
+      DNS1=8.8.8.8
+      DNS2=8.8.4.4
+      IPV4_FAILURE_FATAL=no
+      IPV6INIT=no
+
+
+  /etc/sysconfig/network-scripts/

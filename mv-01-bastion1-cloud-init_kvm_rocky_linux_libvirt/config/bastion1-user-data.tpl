@@ -42,7 +42,7 @@ write_files:
     permissions: "0644"
 
   - encoding: b64
-    content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCk5NX0NPTlRST0xMRUQ9eWVzCkJSSURHRT1icjA=
+    content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCk5NX0NPTlRST0xMRUQ9eWVzCkJSSURHRT1icjAKSVBBRERSPTE5Mi4xNjguMC4yNwpQUkVGSVg9MjQKR0FURVdBWT0xOTIuMTY4LjAuMQpETlMxPTguOC44LjgKRE5TMj04LjguNC40CklQVjRfRkFJTFVSRV9GQVRBTD1ubwpJUFY2SU5JVD1ubw==
     owner: root:root
     path: /etc/sysconfig/network-scripts/ifcfg-eth0
     permissions: "0644"
