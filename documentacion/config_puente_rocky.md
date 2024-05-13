@@ -120,3 +120,60 @@ Reinicia NetworkManager para que aplique los cambios:
 
 Copiar código
 sudo systemctl restart NetworkManager
+
+
+
+
+
+
+
+
+
+
+
+
+Parece que el problema persiste y la interfaz br0 aún se considera no administrada. Probemos una solución alternativa:
+
+Vamos a editar el archivo /etc/sysconfig/network-scripts/ifcfg-br0 para asegurarnos de que la interfaz esté marcada como administrada por NetworkManager.
+
+Abre el archivo /etc/sysconfig/network-scripts/ifcfg-br0 en un editor de texto como nano o vi. Puedes usar el siguiente comando para abrirlo con nano:
+
+bash
+Copiar código
+sudo nano /etc/sysconfig/network-scripts/ifcfg-br0
+Dentro del archivo, busca la línea que comienza con NM_CONTROLLED= y asegúrate de que esté configurada como yes, de esta manera:
+plaintext
+Copiar código
+NM_CONTROLLED=yes
+Guarda los cambios y cierra el editor de texto.
+
+Luego, reinicia el servicio de NetworkManager para que los cambios surtan efecto:
+
+bash
+Copiar código
+sudo systemctl restart NetworkManager
+Intenta activar la conexión br0 nuevamente con el siguiente comando:
+bash
+Copiar código
+sudo nmcli connection up br0
+Esperemos que con estos pasos logremos corregir el problema y puedas activar la interfaz br0 sin problemas.
+
+
+
+[victory@server ~]$ ip addr show br0
+6: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:bc brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.35/24 brd 192.168.0.255 scope global noprefixroute br0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::2e76:8aff:feac:debc/64 scope link
+       valid_lft forever preferred_lft forever
+[victory@server ~]$ sudo nmcli connection up br0
+[sudo] password for victory:
+La conexión se ha activado correctamente (master waiting for slaves) (ruta activa D-Bus: /org/freedesktop/NetworkManager/ActiveConnection/7)
+[victory@server ~]$ sudo brctl show
+bridge name     bridge id               STP enabled     interfaces
+br0             8000.2c768aacdebc       yes             enp3s0f0
+[victory@server ~]$ sudo brctl addif br0 enp3s0f0
+device enp3s0f0 is already a member of a bridge; can't add it to bridge br0.
+[victory@server ~]$ sudo systemctl restart NetworkManager
+[victory@server ~]$ sudo systemctl restart libvirtd
