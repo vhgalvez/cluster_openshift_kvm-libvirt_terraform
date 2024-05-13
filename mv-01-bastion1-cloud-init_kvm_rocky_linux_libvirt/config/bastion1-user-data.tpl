@@ -11,6 +11,7 @@ growpart:
 
 resize_rootfs: true
 
+
 # Configuración de usuario y autenticación
 chpasswd:
   list: |
@@ -46,12 +47,6 @@ write_files:
     content: VFlQRT0iRXRoZXJuZXQiClBST1hZX01FVEhPRD0ibm9uZSIKQlJPV1NFUl9PTkxZPSJubyIKQk9PVFBST1RPPSJub25lIgpERUZST1VURT0ieWVzIgpJUFY0X0ZBSUxVUkVfRkFUQUw9Im5vIgpJUFY2SU5JVD0ibm8iCk5BTUU9ImV0aDAiCkRFVklDRT0iZXRoMCIKT05CT09UPSJ5ZXMiCklQQUREUj0iMTkyLjE2OC4wLjI3IgpQUkVGSVg9IjI0IgpHQVRFV0FZPSIxOTIuMTY4LjAuMSIKRE5TMT0iOC44LjguOCIKRE5TMj0iOC44LjQuNCI=
     owner: root:root
     path: /etc/sysconfig/network-scripts/ifcfg-eth0
-    permissions: "0644"
-
--   path: /etc/motd
-    content: |
-      Managed by Terraform
-    owner: root:root
     permissions: "0644"
 
 
