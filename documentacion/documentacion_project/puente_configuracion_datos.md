@@ -66,7 +66,7 @@ unmanaged-devices=none
 
 base64
 configuracion red cloud init maquina virtual en el archivo de configuracion de cloud init
- /etc/sysconfig/network-scripts/ifcfg-eth0
+ cat /etc/sysconfig/network-scripts/ifcfg-eth0
 
  \config\bastion1-user-data.tpl
 
@@ -150,3 +150,31 @@ resource "libvirt_network" "kube_network_01" {
 #####################   CPU: Intel Xeon X5650 (24) @ 2.665GHz
   #################     GPU: AMD ATI 01:03.0 ES1000
                         Memory: 2042MiB / 35904MiB
+
+
+
+[victory@server ~]$ sudo virsh net-list --all
+ Nombre            Estado   Inicio automático   Persistente
+-------------------------------------------------------------
+ default           activo   si                  si
+ k8s-network       activo   si                  si
+ kube_network_01   activo   si                  si
+
+[victory@server ~]$ sudo virsh net-dhcp-leases  kube_network_01
+ Expiry Time   dirección MAC   Protocol   IP address   Hostname   Client ID or DUID
+-------------------------------------------------------------------------------------
+
+[victory@server ~]$
+
+
+
+
+
+sudo virsh net-list --all
+sudo virsh net-start default
+sudo virsh net-autostart default
+
+
+
+sudo virsh list --all
+
