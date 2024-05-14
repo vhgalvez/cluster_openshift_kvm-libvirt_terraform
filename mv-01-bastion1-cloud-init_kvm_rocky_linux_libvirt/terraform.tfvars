@@ -4,7 +4,6 @@ vm_rockylinux_definitions = {
   "bastion1" = {
     cpus           = 2,
     memory         = 2048,
-    ip             = "192.168.0.35", # IP fija
     cloudinit_disk = "rocky9_cloudinit_disk.iso",
     cloudinit_pool = "default",
     domain_memory  = "4096",
@@ -12,7 +11,11 @@ vm_rockylinux_definitions = {
     volume_format  = "qcow2",
     volume_pool    = "default",
     volume_size    = "32212254720",
-    hostname       = "bastion1"
+    hostname       = "bastion1",
+    ip             = "192.168.0.35", # IP fija
+    gateway        = "192.168.0.1",
+    dns1           = "8.8.8.8",
+    dns2           = "8.8.4.4"
   }
 }
 cluster_name        = "cluster_cefaslocalserver"

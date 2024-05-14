@@ -1,3 +1,19 @@
+# main.tf
+terraform {
+  required_version = "= 1.8.3"
+
+  required_providers {
+    libvirt = {
+      source  = "dmacvicar/libvirt"
+      version = "0.7.1"
+    }
+  }
+}
+
+provider "libvirt" {
+  uri = "qemu:///system"
+}
+
 resource "libvirt_network" "kube_network_01" {
   name      = var.rocky9_network_name
   mode      = "bridge"
@@ -27,18 +43,20 @@ data "template_file" "vm_configs" {
     ssh_keys = jsonencode(var.ssh_keys)
     hostname = each.value.hostname
     timezone = var.timezone
-    ipaddr   = each.value.ip
-    gateway  = "192.168.0.1"
-    dns1     = "8.8.8.8"
-    dns2     = "8.8.4.4"
   }
 }
+
+data "template_file" "network_config" {
+  template = file("${path.module}/config/network-config.tpl")
+}
+
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
-  name      = "${each.key}_cloudinit.iso"
-  pool      = libvirt_pool.volumetmp.name
-  user_data = data.template_file.vm_configs[each.key].rendered
+  name            = "${each.key}_cloudinit.iso"
+  pool            = libvirt_pool.volumetmp.name
+  user_data       = data.template_file.vm_configs[each.key].rendered
+  network_config  = data.template_file.network_config.rendered
 }
 
 resource "libvirt_volume" "vm_disk" {
@@ -89,4 +107,8 @@ resource "libvirt_domain" "vm" {
   cpu {
     mode = "host-passthrough"
   }
+}
+
+output "ip_addresses" {
+  value = { for key, machine in libvirt_domain.vm : key => machine.network_interface[0].addresses[0] if length(machine.network_interface[0].addresses) > 0 }
 }
