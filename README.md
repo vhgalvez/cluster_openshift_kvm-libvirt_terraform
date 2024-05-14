@@ -23,7 +23,6 @@
 - **DHCP en KVM**
 - **Firewall**
 - **Modo NAT y Bridge**
-- **VLANs**: 101, 102, 103, 104, 105, 106, 107
 - **Switch y Router:** Facilitan la comunicación y conectividad del clúster.
 
 ### Máquinas Virtuales y sistemas operativos
@@ -123,6 +122,7 @@
 - **Router WiFi**: Conexión fibra óptica, 600 Mbps de subida/bajada, IP pública
 - **Red**: Configurada con Open vSwitch para manejo avanzado y políticas de red
 - **VPN**: WireGuard para acceso seguro ssh administrado por Bastion Node
+  
 ## Redes Virtuales y Configuración
 
 ## Tabla de Configuración de Redes - kube_network_01 - Bridge Network
