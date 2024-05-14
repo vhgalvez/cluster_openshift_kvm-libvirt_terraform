@@ -1,23 +1,17 @@
-# main.tf
-
-# Define the Virtual Network in libvirt using the created bridge
-# ip fija 192.168.0.35
 resource "libvirt_network" "kube_network_01" {
-  name      = "kube_network_01"
+  name      = var.rocky9_network_name
   mode      = "bridge"
   bridge    = "br0"
-  autostart = "true"
+  autostart = true
   addresses = ["192.168.0.0/24"]
 }
 
-# Define the storage pool for VM disk images
 resource "libvirt_pool" "volumetmp" {
   name = var.cluster_name
   type = "dir"
   path = "/var/lib/libvirt/images/${var.cluster_name}"
 }
 
-# Define the base volume for VMs using a Rocky Linux image
 resource "libvirt_volume" "rocky9_image" {
   name   = "${var.cluster_name}-rocky9_image"
   source = var.rocky9_image
@@ -25,19 +19,17 @@ resource "libvirt_volume" "rocky9_image" {
   format = "qcow2"
 }
 
-# Configuration for each VM using a template file for user data
 data "template_file" "vm_configs" {
   for_each = var.vm_rockylinux_definitions
 
   template = file("${path.module}/config/${each.key}-user-data.tpl")
   vars = {
-    ssh_keys = jsonencode(var.ssh_keys),
-    hostname = each.value.hostname,
+    ssh_keys = jsonencode(var.ssh_keys)
+    hostname = each.value.hostname
     timezone = var.timezone
   }
 }
 
-# Create cloudinit disks for each VM
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
@@ -46,17 +38,16 @@ resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   user_data = data.template_file.vm_configs[each.key].rendered
 }
 
-# Create disks for each VM
 resource "libvirt_volume" "vm_disk" {
   for_each = var.vm_rockylinux_definitions
 
-  name           = "${each.key}-${var.cluster_name}.qcow2"
+  name           = each.value.volume_name
   base_volume_id = libvirt_volume.rocky9_image.id
-  pool           = libvirt_pool.volumetmp.name
-  format         = "qcow2"
+  pool           = each.value.volume_pool
+  format         = each.value.volume_format
+  size           = each.value.volume_size
 }
 
-# Define VM resources
 resource "libvirt_domain" "vm" {
   for_each = var.vm_rockylinux_definitions
 
@@ -80,6 +71,7 @@ resource "libvirt_domain" "vm" {
     type        = "vnc"
     listen_type = "address"
   }
+
   cpu {
     mode = "host-passthrough"
   }
