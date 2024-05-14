@@ -31,13 +31,22 @@ users:
   - name: root
     ssh_authorized_keys: ${ssh_keys}
 
+# Configuración de red, utilizando contenido codificado en base64
+
 write_files:
   - encoding: b64
-    content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9bm9uZQpCUklER0U9YnIwCk5NX0NPTlRST0xMRUQ9bm9uCklQQUREUj0xOTIuMTY4LjAuMzUKUFJFRklYPTE0CkdBVEVXQVk9MTkyLjE2OC4wLjEKRE5TMT04LjguOC44CkROUzI9OC44LjQuNApJUFY0X0ZBSUxVUkVfRkFUQUw9bm8KSVBWNklOSVQ9bm8KREVGT1VURT0ieWVzIgpCUk9XU0VSX09OTFk9Im5vIgpQUk9YWV9NRVRIT0Q9Im5vbmUi
+    content: U0VMSU5VWD1kaXNhYmxlZApTRUxJTlVYVFlQRT10YXJnZXRlZCAKIyAK
+    owner: root:root
+    path: /etc/sysconfig/selinux
+    permissions: "0644"
+
+  - encoding: b64
+    content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCklQQUREUj0xOTIuMTY4LjAuMzUKTkVUTUFTSz0yNTUuMjU1LjI1NS4wCkdBVEVXQVk9MTkyLjE2OC4wLjEKRE5TMT04LjguOC44CkROUzI9OC44LjQuNApERUZST1VURT15ZXMKSVBWNF9GQUlMVVJFX0ZBVEFMPW5vCklQVjZJTklUPW5vCk5NX0NPTlRST0xMRUQ9eWVz
     owner: root:root
     path: /etc/sysconfig/network-scripts/ifcfg-eth0
     permissions: "0644"
 
+# Comandos a ejecutar después de la primera carga
 runcmd:
   - echo "Instance setup completed" >> /var/log/cloud-init-output.log
   - ["systemctl", "restart", "NetworkManager.service"]
