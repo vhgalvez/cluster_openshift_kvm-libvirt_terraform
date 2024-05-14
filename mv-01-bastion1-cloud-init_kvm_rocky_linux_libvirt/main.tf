@@ -62,7 +62,6 @@ resource "libvirt_domain" "vm" {
 
   network_interface {
     network_id = libvirt_network.kube_network_01.id
-    addresses  = [each.value.ip]
     bridge     = "br0"
   }
 

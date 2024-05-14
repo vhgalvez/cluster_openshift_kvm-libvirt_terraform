@@ -150,14 +150,30 @@ sudo systemctl restart NetworkManager
 
 main.tf
 # ip fija 192.168.0.35
+
 resource "libvirt_network" "kube_network_01" {
-  name      = "kube_network_01"
+  name      = var.rocky9_network_name
   mode      = "bridge"
   bridge    = "br0"
-  autostart = "true"
+  autostart = true
+  addresses = ["192.168.0.0/24"]
 }
 
 
+data "template_file" "vm_configs" {
+  for_each = var.vm_rockylinux_definitions
+
+  template = file("${path.module}/config/${each.key}-user-data.tpl")
+  vars = {
+    ssh_keys = jsonencode(var.ssh_keys)
+    hostname = each.value.hostname
+    timezone = var.timezone
+    ipaddr   = each.value.ip
+    gateway  = "192.168.0.1"
+    dns1     = "8.8.8.8"
+    dns2     = "8.8.4.4"
+  }
+}
 [victory@server ~]$ neofetch
         #####           victory@server.cefas.com
        #######          ------------------------
