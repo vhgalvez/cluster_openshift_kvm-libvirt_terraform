@@ -1,3 +1,4 @@
+# main.tf
 resource "libvirt_network" "kube_network_01" {
   name      = var.rocky9_network_name
   mode      = "bridge"
