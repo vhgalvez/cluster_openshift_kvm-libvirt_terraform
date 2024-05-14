@@ -1,7 +1,7 @@
 import base64
 
 # Leer la cadena codificada de un archivo
-with open('base64/archivo_codificado.txt', 'r') as file:
+with open('descdificar/input_archivo_codificado.txt', 'r') as file:
     cadena_codificada = file.read().strip()
 
 # Añadir padding faltante a la cadena, si es necesario
