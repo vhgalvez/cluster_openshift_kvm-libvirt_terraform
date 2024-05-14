@@ -40,9 +40,21 @@ write_files:
     permissions: "0644"
 
   - encoding: b64
-    content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCkJSSURHRT1icjAKTk1fQ09OVFJPTExFRD1ubwpJUEFERFI9MTkyLjE2OC4wLjM1ClBSRUZJWD0yNApHQVRFV0FZPTE5Mi4xNjguMC4xCkROUzE9OC44LjguOApETlMyPTguOC40LjQKSVBWNF9GQUlMVVJFX0ZBVEFMPW5vCklQVjZJTklUPW5vCkRFRlJPVVRFPXllcwpCUk9XU0VSX09OTFk9bm8KUFJPWFlfTUVUSE9EPW5vbmU=
+    content: =
     owner: root:root
     path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    permissions: "0644"
+
+  - encoding: b64
+    content: 
+    owner: root:root
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    permissions: "0644"
+
+  - encoding: b64
+    content: REVWSUNFPWJyMApUWVBFPUJyaWRnZQpPTkJPT1Q9eWVzCkJPT1RQUk9UTz1zdGF0aWMKSVBBRERSPTE5Mi4xNjguMC4zNQpQUkVGSVg9MjQKR0FURVdBWT0xOTIuMTY4LjAuMQpETlMxPTguOC44LjgKRE5TMj04LjguNC40CkRFRlJPVVRFPXllcwpJUFY0X0ZBSUxVUkVfRkFUQUw9bm8KSVBWNklOSVQ9bm8KTk1fQ09OVFJPTExFRD1ubw==
+    owner: root:root
+    path: /etc/sysconfig/network-scripts/ifcfg-br0
     permissions: "0644"
 
 runcmd:
