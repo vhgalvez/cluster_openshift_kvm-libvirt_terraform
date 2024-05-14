@@ -1,4 +1,3 @@
-# main.tf
 terraform {
   required_version = "= 1.8.3"
 
@@ -42,21 +41,15 @@ data "template_file" "vm_configs" {
   vars = {
     ssh_keys = jsonencode(var.ssh_keys)
     hostname = each.value.hostname
-    timezone = var.timezone
   }
-}
-
-data "template_file" "network_config" {
-  template = file("${path.module}/config/network-config.tpl")
 }
 
 resource "libvirt_cloudinit_disk" "vm_cloudinit" {
   for_each = var.vm_rockylinux_definitions
 
-  name            = "${each.key}_cloudinit.iso"
-  pool            = libvirt_pool.volumetmp.name
-  user_data       = data.template_file.vm_configs[each.key].rendered
-  network_config  = data.template_file.network_config.rendered
+  name      = "${each.key}_cloudinit.iso"
+  pool      = libvirt_pool.volumetmp.name
+  user_data = data.template_file.vm_configs[each.key].rendered
 }
 
 resource "libvirt_volume" "vm_disk" {

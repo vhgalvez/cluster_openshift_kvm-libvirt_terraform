@@ -70,8 +70,6 @@ DEFROUTE=yes
 IPV4_FAILURE_FATAL=no
 IPV6INIT=no
 ONBOOT=yes
-NM_CONTROLLED=yes
-DELAY=0
 ```
 
 ```bash
@@ -249,3 +247,4 @@ sudo nmcli con mod br0 ipv4.gateway "192.168.0.1"
 sudo nmcli con mod br0 ipv4.dns "8.8.8.8,8.8.4.4"
 sudo nmcli con mod br0 ipv4.method manual
 sudo systemctl restart NetworkManager
+sudo nmcli connection show
