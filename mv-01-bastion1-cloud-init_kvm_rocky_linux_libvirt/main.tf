@@ -28,9 +28,6 @@ data "template_file" "vm_configs" {
     hostname = each.value.hostname
     timezone = var.timezone
     ipaddr   = each.value.ip
-    gateway  = "192.168.0.1"
-    dns1     = "8.8.8.8"
-    dns2     = "8.8.4.4"
   }
 }
 
