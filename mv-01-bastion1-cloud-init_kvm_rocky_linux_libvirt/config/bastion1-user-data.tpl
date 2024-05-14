@@ -31,7 +31,14 @@ users:
   - name: root
     ssh_authorized_keys: ${ssh_keys}
 
+# Configuración de red, utilizando contenido codificado en base64
 write_files:
+  - encoding: b64
+    content: U0VMSU5VWD1kaXNhYmxlZApTRUxJTlVYVFlQRT10YXJnZXRlZCAKIyAK
+    owner: root:root
+    path: /etc/sysconfig/selinux
+    permissions: "0644"
+
   - encoding: b64
     content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCkJSSURHRT1icjAKTk1fQ09OVFJPTExFRD1ubwpJUEFERFI9MTkyLjE2OC4wLjM1ClBSRUZJWD0yNApHQVRFV0FZPTE5Mi4xNjguMC4xCkROUzE9OC44LjguOApETlMyPTguOC40LjQKSVBWNF9GQUlMVVJFX0ZBVEFMPW5vCklQVjZJTklUPW5vCkRFRlJPVVRFPXllcwpCUk9XU0VSX09OTFk9bm8KUFJPWFlfTUVUSE9EPW5vbmU=
     owner: root:root
