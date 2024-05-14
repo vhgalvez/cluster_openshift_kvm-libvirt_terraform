@@ -32,12 +32,7 @@ users:
     ssh_authorized_keys: ${ssh_keys}
 
 # Configuración de red, utilizando contenido codificado en base64
-write_files:
-  - encoding: b64
-    content: U0VMSU5VWD1kaXNhYmxlZApTRUxJTlVYVFlQRT10YXJnZXRlZCAKIyAK
-    owner: root:root
-    path: /etc/sysconfig/selinux
-    permissions: "0644"
+
 
 runcmd:
   - echo "Instance setup completed" >> /var/log/cloud-init-output.log
