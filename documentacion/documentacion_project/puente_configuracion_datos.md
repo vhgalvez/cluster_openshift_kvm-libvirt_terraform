@@ -156,41 +156,8 @@ PROXY_METHOD="none"
 base64
  \config\bastion1-user-data.tpl
 
-```yaml
- - encoding: b64
-    content: VFlQRT1FdGhlcm5ldApERVZJQ0U9ZXRoMApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCkJSSURHRT1icjAKTk1fQ09OVFJPTExFRD1ubwpJUEFERFI9MTkyLjE2OC4wLjM1ClBSRUZJWD0yNApHQVRFV0FZPTE5Mi4xNjguMC4xCkROUzE9OC44LjguOApETlMyPTguOC40LjQKSVBWNF9GQUlMVVJFX0ZBVEFMPW5vCklQVjZJTklUPW5vCkRFRlJPVVRFPSJ5ZXMiCkJST1dTRVJfT05MWT0ibm8iClBST1hZX01FVEhPRD0ibm9uZSI=
-    owner: root:root
-    path: /etc/sysconfig/network-scripts/ifcfg-eth0
-    permissions: "0644"
-```
-
-# Main.tf
-
-# ip fija 192.168.0.35
-
-resource "libvirt_network" "kube_network_01" {
-  name      = var.rocky9_network_name
-  mode      = "bridge"
-  bridge    = "br0"
-  autostart = true
-  addresses = ["192.168.0.0/24"]
-}
 
 
-data "template_file" "vm_configs" {
-  for_each = var.vm_rockylinux_definitions
-
-  template = file("${path.module}/config/${each.key}-user-data.tpl")
-  vars = {
-    ssh_keys = jsonencode(var.ssh_keys)
-    hostname = each.value.hostname
-    timezone = var.timezone
-    ipaddr   = each.value.ip
-    gateway  = "192.168.0.1"
-    dns1     = "8.8.8.8"
-    dns2     = "8.8.4.4"
-  }
-}
 
 
 sudo virsh net-list --all
