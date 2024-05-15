@@ -70,7 +70,7 @@ resource "libvirt_domain" "vm" {
   vcpu   = each.value.cpus
 
   network_interface {
-    network_id = libvirt_network.kube_network_01.id
+    network_id = libvirt_network.br0.id
     bridge     = "br0"
   }
 
