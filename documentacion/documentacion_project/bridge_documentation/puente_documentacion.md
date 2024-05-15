@@ -78,3 +78,30 @@ sudo systemctl restart NetworkManager
 ip addr show br0
 ip addr show eth0
 ```
+
+sudo nmcli connection down br0 && sudo nmcli connection up br0
+
+
+
+
+Comprobar que NetworkManager Controla las Interfaces
+NetworkManager debe estar configurado para gestionar las interfaces. Abre el archivo de configuración de NetworkManager:
+
+bash
+Copiar código
+sudo nano /etc/NetworkManager/NetworkManager.conf
+Asegúrate de que contenga las siguientes líneas:
+
+ini
+Copiar código
+[main]
+plugins=ifcfg-rh,keyfile
+
+[ifcfg-rh]
+managed=true
+5. Eliminar Configuraciones DHCP Residuales
+Para asegurarte de que no hay configuraciones DHCP que interfieran, puedes verificar y eliminar cualquier configuración residual de dhcp en /etc/sysconfig/network-scripts/.
+
+bash
+Copiar código
+sudo grep -r 'dhcp' /etc/sysconfig/network-scripts/

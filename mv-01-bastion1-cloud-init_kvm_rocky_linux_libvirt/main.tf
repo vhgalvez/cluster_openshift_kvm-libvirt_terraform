@@ -13,7 +13,7 @@ provider "libvirt" {
   uri = "qemu:///system"
 }
 
-resource "libvirt_network" "kube_network_01" {
+resource "libvirt_network" "br0" {
   name      = var.rocky9_network_name
   mode      = "bridge"
   bridge    = "br0"
