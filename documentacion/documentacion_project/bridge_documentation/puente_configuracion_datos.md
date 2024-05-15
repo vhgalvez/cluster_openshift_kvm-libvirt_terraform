@@ -123,6 +123,69 @@ domains=ALL
 ```
 
 
+# ver interfaces de red físicas
+  
+  ```bash
+lspci | grep Ethernet
+03:00.0 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme II BCM5709 Gigabit Ethernet (rev 20)
+03:00.1 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme II BCM5709 Gigabit Ethernet (rev 20)
+04:00.0 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme II BCM5709 Gigabit Ethernet (rev 20)
+04:00.1 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme II BCM5709 Gigabit Ethernet (rev 20)
+  ```
+
+  ```bash
+  ip addr show
+  ```
+  - output
+  - 
+  ```plaintext
+  1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: enp3s0f0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq master br0 state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:bc brd ff:ff:ff:ff:ff:ff
+3: enp3s0f1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:be brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.42/24 brd 192.168.0.255 scope global dynamic noprefixroute enp3s0f1
+       valid_lft 83933sec preferred_lft 83933sec
+    inet6 fe80::3ea:56ab:10ce:d224/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+4: enp4s0f0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:c0 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.20/24 brd 192.168.0.255 scope global dynamic noprefixroute enp4s0f0
+       valid_lft 83929sec preferred_lft 83929sec
+    inet6 fe80::863b:199b:d2f:4b44/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+5: enp4s0f1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:c2 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.18/24 brd 192.168.0.255 scope global dynamic noprefixroute enp4s0f1
+       valid_lft 83933sec preferred_lft 83933sec
+    inet6 fe80::4a8b:91ce:d9d5:6440/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+6: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 2c:76:8a:ac:de:bc brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.35/24 brd 192.168.0.255 scope global noprefixroute br0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::3b35:9829:337b:7e44/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+7: virbr0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:be:f6:d5 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+8: k8s: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:41:a0:5d brd ff:ff:ff:ff:ff:ff
+    inet 192.168.120.1/24 brd 192.168.120.255 scope global k8s
+       valid_lft forever preferred_lft forever
+9: vnet0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master br0 state UNKNOWN group default qlen 1000
+    link/ether fe:54:00:3e:a3:78 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::fc54:ff:fe3e:a378/64 scope link
+       valid_lft forever preferred_lft forever
+  ```plaintext
+
+
 # Maquina Virtual configuracion red  cloud init
 
 \config\bastion1-user-data.tpl
