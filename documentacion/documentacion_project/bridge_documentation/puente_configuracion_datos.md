@@ -41,7 +41,7 @@ con la ip 192.168.0.35 y que tenga acceso a internet. y salidas a internet.
 
 ### Interfaces de Red Identificadas
 
-ips ejemplo dhscp de las interfaces de red en el servidor fisico
+ips son de ejemplo dhscp de las interfaces de red en el servidor fisico
 
 - **enp3s0f0**: 192.168.0.15 +
 - **enp3s0f1**: 192.168.0.16  (utilizada para Bridge en Bastion Node)
@@ -240,7 +240,7 @@ tree
 │   └── network-config.tpl
 ├── main.tf
 ├── terraform.tfvars
-└── vars.tf
+└── variables.tf
 
 
 
