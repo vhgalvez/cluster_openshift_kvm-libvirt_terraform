@@ -1,4 +1,4 @@
-# cloud-config  \config\bastion1-user-data.tpl
+#cloud-config
 hostname: ${hostname}
 manage_etc_hosts: true
 
@@ -30,7 +30,6 @@ users:
   - name: root
     ssh_authorized_keys: ${ssh_keys}
 
-# Configuración de red, utilizando contenido codificado en base64
 write_files:
   - encoding: b64
     content: U0VMSU5VWD1kaXNhYmxlZApTRUxJTlVYVFlQRT10YXJnZXRlZCAKIyAK

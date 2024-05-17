@@ -1,4 +1,3 @@
-# cloud-config  \config\network-config.tpl
 version: 2
 ethernets:
   eth0:
