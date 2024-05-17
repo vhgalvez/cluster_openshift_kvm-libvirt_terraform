@@ -51,4 +51,9 @@ write_files:
 
 runcmd:
   - echo "Instance setup completed" >> /var/log/cloud-init-output.log
+  - ["dnf", "install", "-y", "firewalld"]
+  - ["systemctl", "enable", "--now", "firewalld"]
   - ["systemctl", "restart", "NetworkManager.service"]
+  - ["firewall-cmd", "--permanent", "--zone=public", "--add-interface=br0"]
+  - ["firewall-cmd", "--permanent", "--zone=public", "--add-masquerade"]
+  - ["firewall-cmd", "--reload"]
