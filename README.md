@@ -48,12 +48,16 @@
 ### Interfaces de Red Identificadas
 
 - **enp3s0f0**: 192.168.0.15 
-- **enp3s0f1**: 192.168.0.16  (utilizada para Bridge en Bastion Node)
+- **enp3s0f1**: 192.168.0.16  
 - **enp4s0f0**: 192.168.0.20 
 - **enp4s0f1**: 192.168.0.18 
 - **lo (Loopback)**: 127.0.0.1
+  Estas interfaces se utilizan para la comunicación y conectividad de la red, incluyendo la configuración de redes virtuales y la gestión de tráfico.
+  estan conectatadas a un switch y un router fibra optica de la compañia de telecomunicaciones en en dhcp.
+  se creara un (utilizada una infras de red para Bridge en Bastion Node)
 
 ### Automatización y Orquestación
+
 
 - **Terraform**: Automatización de infraestructura
 - **Ansible**: Configuración y manejo de operaciones
@@ -129,7 +133,7 @@
 
 | Red NAT        | Nodos    | Dirección IP | Rol del Nodo                           | Interfaz de Red |
 |----------------|----------|--------------|----------------------------------------|-----------------|
-| kube_network_01 | bastion1 |              | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
+| br0 | bastion1 |              | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
 
 ## Tabla de Configuración de Redes - kube_network_02 - NAT Network
 
@@ -212,11 +216,13 @@
 
 
 ```hcl
-# Red kube_network_01 - Bridge Network - Rocky Linux 9.3
-resource "libvirt_network" "kube_network_01" {
-  name   = "kube_network_01"
-  mode   = "bridge"
-  bridge = "br0"
+# Red br0 - Bridge Network - Rocky Linux 9.3
+resource "libvirt_network" "br0" {
+  name      = var.rocky9_network_name
+  mode      = "bridge"
+  bridge    = "br0"
+  autostart = true
+  addresses = ["192.168.0.0/24"]
 }
 
 # Red kube_network_02 - NAT Network - Rocky Linux 9.3
