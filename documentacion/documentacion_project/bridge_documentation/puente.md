@@ -73,3 +73,15 @@ sudo virsh net-info kube_network_01
 sudo yum install bridge-utils net-tools      # CentOS/RHEL
 
 
+
+
+sudo dnf install bridge-utils net-tools      # Fedora/Rocky Linux
+
+To use `lshw -class network`, you need to ensure `lshw` is installed. If it's not, you can install it with the following command:
+
+```sh
+sudo dnf install lshw -y
+```
+After installing lshw, you can execute the following command:
+
+sudo lshw -class network
