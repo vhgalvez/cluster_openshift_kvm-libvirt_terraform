@@ -47,14 +47,19 @@
 
 ### Interfaces de Red Identificadas
 
-- **enp3s0f0**: 192.168.0.15 
-- **enp3s0f1**: 192.168.0.16  
-- **enp4s0f0**: 192.168.0.20 
-- **enp4s0f1**: 192.168.0.18 
+- **enp3s0f0**: 192.168.0.15
+- **enp3s0f1**: 192.168.0.16
+- **enp4s0f0**: 192.168.0.20
+- **enp4s0f1**: 192.168.0.18
 - **lo (Loopback)**: 127.0.0.1
-  Estas interfaces se utilizan para la comunicación y conectividad de la red, incluyendo la configuración de redes virtuales y la gestión de tráfico.
-  estan conectatadas a un switch y un router fibra optica de la compañia de telecomunicaciones en en dhcp.
-  se creara un (utilizada una infras de red para Bridge en Bastion Node)
+
+Estas interfaces se utilizan para la comunicación y conectividad de la red, incluyendo la configuración de redes virtuales y la gestión de tráfico. Las interfaces están conectadas a un switch y un router de fibra óptica de la compañía de telecomunicaciones, operando bajo DHCP.
+
+### Configuración de la Infraestructura de Red
+
+- Las direcciones IP pueden cambiar debido a la asignación dinámica de DHCP.
+- Se utilizará una infraestructura de red para configurar el modo Bridge en el nodo Bastion.
+
 
 ### Automatización y Orquestación
 
