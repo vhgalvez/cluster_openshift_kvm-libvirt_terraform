@@ -1,0 +1,43 @@
+may 17 01:30:04 server.cefas.com systemd[1]: Starting Network Manager...
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5107] monotonic timestamp started counting 1.547793312 seconds ago with an offset of 17.0 seconds to CLOCK_BOOTT>
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <info>  [1715902204.5115] NetworkManager (version 1.46.0-4.el9_4) is starting... (boot:7c67ee34-bc32-4517-aba6-57adf646d6e2)
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <info>  [1715902204.5115] Read config: /etc/NetworkManager/NetworkManager.conf (lib: 00-server.conf) (run: 15-carrier-timeout.conf) >
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5115] CONFIG: config-data[0x560ab8026020]: 3 groups
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5115] CONFIG:
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5115] CONFIG: [main]
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5116] CONFIG:   no-auto-default=*
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5116] CONFIG:   ignore-carrier=*
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5116] CONFIG:   plugins=keyfile,ifcfg-rh
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5116] CONFIG:   configure-and-quit=no
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5116] CONFIG:
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5116] CONFIG: [logging]
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5117] CONFIG:   level=TRACE
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5117] CONFIG:   domains=ALL
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5117] CONFIG:
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5117] CONFIG: [device]
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5117] CONFIG:   match-device=br0
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5117] CONFIG:
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5117] CONFIG: # no-auto-default file "/var/lib/NetworkManager/no-auto-default.state"
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5183] config: state: successfully read state file "/var/lib/NetworkManager/NetworkManager.state"
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5184] WEXT support is disabled
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5193] create NMDBusManager singleton (64d236a8563f2d75)
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5218] bus-manager: D-Bus connection created and ObjectManager object registered
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5226] netns[cf95290e7329132c]: new netns (net:8, mnt:9)
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5236] platform-linux: create (ignore netns, initial netns, use udev, no tc-cache)
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5237] platform-linux: genl: generic netlink socket for sync operations created: port=1288, fd=11
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5238] platform-linux: genl: generic netlink socket created: port=4040278323, fd=12
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5239] platform-linux: rtnl: rtnetlink socket created: port=1288, fd=13
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5239] platform-linux: populate platform cache
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5248] platform-linux: event-notification: RTM_NEWLINK, flags multi, seq 1, in-dump: 1: lo <UP,LOWER_UP;loopback,>
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5250] ethtool[1]: ETHTOOL_GDRVINFO, lo: failed: La operación no está soportada
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5250] platform: (lo) signal: link   added: 1: lo <UP,LOWER_UP;loopback,up,running,lowerup> mtu 65536 arp 772 loo>
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5251] ethtool[2]: ETHTOOL_GDRVINFO, enp3s0f0: success
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5256] platform: kernel-support for IFLA_PERM_ADDRESS (IFLA_PERM_ADDRESS netlink attribute) detected: supported
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5257] platform-linux: event-notification: RTM_NEWLINK, flags multi, seq 1, in-dump: 2: enp3s0f0 <DOWN;broadcast,>
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5257] ethtool[2]: ETHTOOL_GDRVINFO, enp3s0f0: success
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5258] platform: (enp3s0f0) signal: link   added: 2: enp3s0f0 <DOWN;broadcast,multicast> mtu 1500 arp 1 ethernet?>
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5259] ethtool[3]: ETHTOOL_GDRVINFO, enp3s0f1: success
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5260] platform-linux: event-notification: RTM_NEWLINK, flags multi, seq 1, in-dump: 3: enp3s0f1 <DOWN;broadcast,>
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5261] ethtool[3]: ETHTOOL_GDRVINFO, enp3s0f1: success
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <debug> [1715902204.5261] platform: (enp3s0f1) signal: link   added: 3: enp3s0f1 <DOWN;broadcast,multicast> mtu 1500 arp 1 ethernet?>
+may 17 01:30:04 server.cefas.com NetworkManager[1288]: <trace> [1715902204.5262] ethtool[4]: ETHTOOL_GDRVINFO, enp4s0f0: success
