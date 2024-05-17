@@ -1,4 +1,4 @@
-#cloud-config
+# cloud-config  \config\bastion1-user-data.tpl
 hostname: ${hostname}
 manage_etc_hosts: true
 

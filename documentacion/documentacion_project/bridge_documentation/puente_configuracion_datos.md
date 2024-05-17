@@ -1,4 +1,4 @@
-# Configuracion de puente de red en Rocky Linux 9 con NetworkManager KVM y libvirt cloud init 
+# Configuracion de puente de red en Rocky Linux 9 con NetworkManager KVM y libvirt y terrafom , y cloud init 
 
 quiero que la maquina virtual tenga una configuracion de red estatica y que se conecte a la red a traves de un puente de red.
 con la ip 192.168.0.35 y que tenga acceso a internet. y salidas a internet.

@@ -1,11 +1,12 @@
+# cloud-config  \config\network-config.tpl
 version: 2
 ethernets:
   eth0:
     dhcp4: false
     addresses:
-      - 192.168.0.35/24
-    gateway4: 192.168.0.1
+      - ${ip}/24
+    gateway4: ${gateway}
     nameservers:
       addresses:
-        - 8.8.8.8
-        - 8.8.4.4
+        - ${dns1}
+        - ${dns2}
