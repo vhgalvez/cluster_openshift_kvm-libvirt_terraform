@@ -37,6 +37,18 @@ write_files:
     path: /etc/sysconfig/selinux
     permissions: "0644"
 
+  - encoding: b64
+    content: REVWSUNFPWV0aDAKVFlQRT1FdGhlcm5ldApPTkJPT1Q9eWVzCkJPT1RQUk9UTz1ub25lCkJSSURHRT1icjA=
+    owner: root:root
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    permissions: "0644"
+
+  - encoding: b64
+    content: REVWSUNFPWJyMApUWVBFPUJyaWRnZQpPTkJPT1Q9eWVzCkJPT1RQUk9UTz1zdGF0aWMKSVBBRERSPTE5Mi4xNjguMC4zNQpQUkVGSVg9MjQKR0FURVdBWT0xOTIuMTY4LjAuMQpETlMxPTguOC44LjgKRE5TMj04LjguNC40CkRFRlJPVVRFPXllcwpJUFY0X0ZBSUxVUkVfRkFUQUw9bm8KSVBWNklOSVQ9bm8=
+    owner: root:root
+    path: /etc/sysconfig/network-scripts/ifcfg-br0
+    permissions: "0644"
+
 runcmd:
   - echo "Instance setup completed" >> /var/log/cloud-init-output.log
   - ["systemctl", "restart", "NetworkManager.service"]
