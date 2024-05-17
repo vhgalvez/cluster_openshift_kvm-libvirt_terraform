@@ -278,3 +278,14 @@ sudo nmcli con mod br0 ipv4.dns "8.8.8.8,8.8.4.4"
 sudo nmcli con mod br0 ipv4.method manual
 sudo systemctl restart NetworkManager
 sudo nmcli connection show
+
+
+
+
+sudo nmcli con show br0
+
+sudo nmcli con show br0
+
+
+sudo ip link add name br0 type bridge
+sudo ip link set br0 up
