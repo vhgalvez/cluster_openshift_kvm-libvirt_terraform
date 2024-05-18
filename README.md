@@ -134,7 +134,7 @@ Estas interfaces se utilizan para la comunicación y conectividad de la red, inc
   
 ## Redes Virtuales y Configuración
 
-## Tabla de Configuración de Redes - kube_network_01 - Bridge Network
+## Tabla de Configuración de Redes - br0 - Bridge Network
 
 | Red NAT        | Nodos    | Dirección IP | Rol del Nodo                           | Interfaz de Red |
 |----------------|----------|--------------|----------------------------------------|-----------------|
@@ -162,11 +162,11 @@ Estas interfaces se utilizan para la comunicación y conectividad de la red, inc
 
 ### Detalles de las Máquinas Virtuales por Red
 
-#### kube_network_01 - Bridge Network
+#### br0 - Bridge Network
 
 | Máquina  | CPU (cores) | Memoria (MB) | IP | Dominio                          | Sistema Operativo       |
 |----------|-------------|--------------|----|----------------------------------|-------------------------|
-| Bastion1 | 1           | 1024         |    | bastion.cefaslocalserver.com     | Rocky Linux 9.3 Minimal |
+| Bastion1 | 1           | 2024         |    | bastion.cefaslocalserver.com     | Rocky Linux 9.3 Minimal |
 
 #### kube_network_02 - NAT Network
 
@@ -191,11 +191,11 @@ Estas interfaces se utilizan para la comunicación y conectividad de la red, inc
 
 ## Tabla de Configuración de Redes
 
-### Tabla de Configuración de Redes - kube_network_01
+### Tabla de Configuración de Redes - br0
 
 | Red NAT          | Nodos      | Dirección IP | Rol del Nodo                               | Interfaz de Red |
 |------------------|------------|--------------|--------------------------------------------|-----------------|
-| kube_network_01  | `bastion1` |              | Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
+| br0 | `bastion1` |192.168.0.35| Acceso seguro, Punto de conexión de bridge | `enp3s0f1`      |
 
 ### Tabla de Configuración de Redes - kube_network_02
 
