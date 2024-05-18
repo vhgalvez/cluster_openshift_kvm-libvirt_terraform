@@ -124,3 +124,54 @@ server {
 
 **sudo systemctl restart nginx**
 
+sudo systemctl restart nginx
+
+
+## 3. Configuración del Servidor DNS FreeIPA
+
+### Paso 1: Instalación de FreeIPA
+
+**Instalar FreeIPA Server:**
+
+```bash
+sudo dnf install freeipa-server -y
+```
+
+
+
+**Configurar FreeIPA Server:**
+
+```bash
+sudo ipa-server-install
+```
+
+Sigue las instrucciones del instalador para configurar el dominio, la contraseña del administrador, y otras configuraciones necesarias.
+
+### Paso 2: Configuración del Servidor DNS en FreeIPA
+
+**Habilitar y configurar el DNS durante la instalación de FreeIPA:**
+
+Durante el proceso de instalación, selecciona la opción para configurar el servidor DNS y proporciona la información de zona necesaria.
+
+**Verificar la configuración de DNS:**
+
+Puedes verificar la configuración del servidor DNS y agregar registros DNS a través de la interfaz web de FreeIPA o usando las herramientas de línea de comandos de FreeIPA.
+
+Para agregar un registro DNS, usa el siguiente comando:
+
+```bash
+ipa dnsrecord-add example.com test --a-rec 192.0.2.1+
+```
+
+Verificar los registros DNS:
+
+
+```bash
+ipa dnsrecord-find example.com
+```
+
+
+## 4. Conclusión
+   
+Este documento proporciona una guía completa para configurar la comunicación entre redes NAT, acceso HTTPS seguro, conexión VPN utilizando WireGuard, y la configuración de un servidor DNS utilizando FreeIPA. Con estos pasos, podrás asegurar la comunicación eficiente y segura dentro de tu infraestructura de red y clúster.
+
