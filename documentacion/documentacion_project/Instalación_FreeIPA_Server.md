@@ -14,9 +14,9 @@ Actualización del Sistema: Antes de comenzar, asegúrate de que el sistema est�
 sudo dnf update -y
 ```
 
-Paso 1: Instalación de FreeIPA Server
+## Paso 1: Instalación de FreeIPA Server
 
-Paso 1.1: Configuración del Repositorio
+### Paso 1.1: Configuración del Repositorio
 
 Primero, instala el repositorio EPEL y el repositorio de FreeIPA:
 
@@ -26,26 +26,24 @@ Primero, instala el repositorio EPEL y el repositorio de FreeIPA:
 sudo dnf install epel-release -y
 sudo dnf install ipa-server ipa-server-dns -y
 ```
-Paso 1.2: Instalación de FreeIPA Server
+### Paso 1.2: Instalación de FreeIPA Server
 
 Instala el paquete FreeIPA Server:
-
-
 
 ```bash
 sudo dnf install freeipa-server -y
 ```
-Paso 2: Configuración de FreeIPA Server
 
-Paso 2.1: Preparar la Instalación de FreeIPA
+## Paso 2: Configuración de FreeIPA Server
+
+### Paso 2.1: Preparar la Instalación de FreeIPA
 
 Ejecuta el instalador de FreeIPA:
-
-
 
 ```bash
 sudo ipa-server-install
 ```
+
 Sigue las instrucciones en pantalla y proporciona la información requerida:
 
 Configuración DNS: Acepta la configuración para que FreeIPA configure y administre el DNS.
