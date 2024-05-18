@@ -256,10 +256,3 @@ resource "libvirt_network" "kube_network_03" {
 | k8s       | 192.168.120.1   | 255.255.255.0   | 192.168.120.255  | Interfaz para Kubernetes                 | Solo configuración, no tráfico    |
 | lo        | 127.0.0.1       | 255.0.0.0       | -                | Loopback, interfaz de red virtual        | Tráfico local solo                |
 | virbr0    | 192.168.122.1   | 255.255.255.0   | 192.168.122.255  | Interfaz de red virtual por defecto      | Usado típicamente por KVM         |
-
-## Detalles adicionales
-
-- Los nodos dentro de cada red NAT pueden comunicarse entre sí a través de sus direcciones IP asignadas. Sin embargo, la interacción entre nodos de diferentes redes NAT requiere configuración adicional en el enrutamiento o el uso de un nodo bastión configurado para permitir y gestionar dicho tráfico.
-- Consideraciones de seguridad, como firewalls y VLANs, deben ser tomadas en cuenta para proteger el tráfico que cruza diferentes segmentos de red y para garantizar la integridad y seguridad del clúster.
-- La infraestructura de red debe apoyar estas configuraciones, incluyendo soporte para Open vSwitch y capacidades avanzadas de NAT y bridging.
-- Este diseño propuesto permite una comprensión clara de cómo se pueden estructurar y gestionar eficazmente las redes dentro de un entorno de clúster, asegurando tanto la funcionalidad como la seguridad.
