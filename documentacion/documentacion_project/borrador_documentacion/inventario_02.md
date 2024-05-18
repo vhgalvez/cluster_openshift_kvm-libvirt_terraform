@@ -16,7 +16,7 @@
 - **Flatcar Container Linux**
 
 ## Configuración de Red
-- **Open vSwitch**: Gestión de redes virtuales y VLANs
+- **Open vSwitch**: Gestión de redes virtuales y VLANs (opcional)
 - **VPN con WireGuard**
 - **IP Pública**
 - **DHCP en KVM**
