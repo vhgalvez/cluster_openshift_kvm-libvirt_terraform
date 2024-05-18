@@ -17,7 +17,6 @@ sudo sysctl -p
 
 **Agregar reglas de IPTables para permitir el tráfico entre interfaces:**
 
-
 ```bash
 sudo iptables -A FORWARD -i br0 -o virbr0 -j ACCEPT
 sudo iptables -A FORWARD -i virbr0 -o br0 -j ACCEPT
