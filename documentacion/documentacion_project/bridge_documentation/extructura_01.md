@@ -1,14 +1,13 @@
-
 terraform_project/
 ├── main.tf
 ├── terraform.tfvars
-├── network_br0/
+├── bastion_network/
 │   ├── main.tf
 │   ├── variables.tf
 │   └── config/
 │       ├── bastion1-user-data.tpl
 │       └── network-config.tpl
-├── network_kube_02/
+├── nat_network_02/
 │   ├── main.tf
 │   ├── variables.tf
 │   └── config/
@@ -16,10 +15,10 @@ terraform_project/
 │       ├── load_balancer1-user-data.tpl
 │       ├── postgresql1-user-data.tpl
 │       └── network-config.tpl
-└── network_kube_03/
+└── nat_network_03/
     ├── main.tf
     ├── variables.tf
-    └── configs/
+    └── config/
         ├── machine-bootstrap1-config.yaml.tmpl
         ├── machine-master1-config.yaml.tmpl
         ├── machine-master2-config.yaml.tmpl
