@@ -76,7 +76,7 @@ sudo systemctl start wg-quick@wg0
 ```bash
 sudo wg
 ```
-
+** nginx va en un Pods de okd ** 
 ### Paso 2: Configuración de Certificados SSL/TLS
 
 **Generar y configurar certificados SSL/TLS utilizando Let's Encrypt:**
@@ -87,7 +87,6 @@ sudo wg
 ```bash
 sudo dnf install certbot -y
 ```
-
 
 **Obtener un certificado SSL para el dominio del servidor:**
 

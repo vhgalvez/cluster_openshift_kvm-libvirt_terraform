@@ -18,13 +18,15 @@
 ### Configuración de Red
 
 
-- **Open vSwitch**: Gestión de redes virtuales y VLANs (opcional)
 - **VPN con WireGuard**
 - **IP Pública**
 - **DHCP en KVM**
+- **Redes Virtuales con KVM**
 - **Firewall**
 - **Modo NAT y Bridge**
 - **Switch y Router**: Facilitan la comunicación y conectividad del clúster.
+- **opcional Open vSwitch**: Gestión de redes virtuales y VLANs 
+
 
 ### Máquinas Virtuales y Sistemas Operativos
 
@@ -126,7 +128,7 @@ Estas interfaces se utilizan para la comunicación y conectividad de la red, inc
 
 - **Switch**: TP-Link LS1008G - 8 puertos Gigabit no administrados
 - **Router WiFi**: Conexión fibra óptica, 600 Mbps de subida/bajada, IP pública
-- **Red**: Configurada con Open vSwitch para manejo avanzado y políticas de red
+- **Red**: red de kvm - Configurada con Open vSwitch para manejo avanzado y políticas de red,Gestión de redes virtuales y VLANs (opcional)
 - **VPN**: WireGuard para acceso seguro ssh administrado por Bastion Node
 
 ## Redes Virtuales y Configuración
@@ -255,6 +257,6 @@ resource "libvirt_network" "kube_network_03" {
 ### Detalles Adicionales
 
 - Los nodos dentro de cada red NAT pueden comunicarse entre sí a través de sus direcciones IP asignadas. Sin embargo, la interacción entre nodos de diferentes redes NAT requiere configuración adicional en el enrutamiento o el uso de un nodo bastión configurado para permitir y gestionar dicho tráfico.
-- Consideraciones de seguridad, como firewalls y VLANs, deben ser tomadas en cuenta para proteger el tráfico que cruza diferentes segmentos de red y para garantizar la integridad y seguridad del clúster.
-- La infraestructura de red debe apoyar estas configuraciones, incluyendo soporte para Open vSwitch y capacidades avanzadas de NAT y bridging.
+- Consideraciones de seguridad, como firewalls y nat , deben ser tomadas en cuenta para proteger el tráfico que cruza diferentes segmentos de red y para garantizar la integridad y seguridad del clúster.
+- La infraestructura de red debe apoyar estas configuraciones,bridging.
 - Este diseño propuesto permite una comprensión clara de cómo se pueden estructurar y gestionar eficazmente las redes dentro de un entorno de clúster, asegurando tanto la funcionalidad como la seguridad.
